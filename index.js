@@ -1,3 +1,3 @@
 module.exports = {
-  StatsWriterPlugin: require("lib/status-writer-plugin")
+  StatsWriterPlugin: require("./lib/stats-writer-plugin")
 };
