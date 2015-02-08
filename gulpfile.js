@@ -4,6 +4,7 @@
 var gulp = require("gulp");
 var eslint = require("gulp-eslint");
 var jscs = require("gulp-jscs");
+var mdox = require("gulp-mdox");
 
 // ----------------------------------------------------------------------------
 // Constants
@@ -39,6 +40,23 @@ gulp.task("jscs", function () {
 gulp.task("check", ["jscs", "eslint"]);
 gulp.task("check:ci", ["jscs", "eslint"]);
 gulp.task("check:all", ["jscs", "eslint"]);
+
+// ----------------------------------------------------------------------------
+// Docs
+// ----------------------------------------------------------------------------
+gulp.task("docs", function () {
+  return gulp
+    .src([
+      "lib/**/*.js"
+    ])
+    .pipe(mdox({
+      src: "./README.md",
+      name: "README.md",
+      start: "## Plugins",
+      end: "## Contributions"
+    }))
+    .pipe(gulp.dest("./"));
+});
 
 // ----------------------------------------------------------------------------
 // Aggregations

@@ -7,7 +7,8 @@
   "devDependencies": {
     "gulp": "3.8.10",
     "gulp-eslint": "0.2.2",
-    "gulp-jscs": "1.4.0"
+    "gulp-jscs": "1.4.0",
+    "gulp-mdox": "0.0.2"
   },
   "repository": {
     "type": "git",
