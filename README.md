@@ -10,6 +10,14 @@ process / tranform the object and write out to a file for further consumption.
 The most common use case is building a hashed bundle and wanting to
 programmatically referring to the correct bundle path in your Node.js server.
 
+## Installation
+
+The plugin is available via [npm](https://www.npmjs.com/package/webpack-stats-plugin):
+
+```
+$ npm install --save webpack-stats-plugin
+```
+
 ## Examples
 
 ### Stats Writer Plugin
