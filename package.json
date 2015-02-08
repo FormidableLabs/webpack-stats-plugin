@@ -9,6 +9,18 @@
     "gulp-eslint": "0.2.2",
     "gulp-jscs": "1.4.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FormidableLabs/webpack-stats-plugin"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "Ryan Roemer <ryan.roemer@formidablelabs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FormidableLabs/webpack-stats-plugin/issues"
+  },
   "scripts": {
     "test": "gulp check"
   }
