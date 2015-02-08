@@ -1,0 +1,15 @@
+{
+  "name": "webpack-stats-plugin",
+  "version": "0.0.1",
+  "description": "Webpack stats plugin",
+  "main": "webpack-stats-plugin.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "3.8.10",
+    "gulp-eslint": "0.2.2",
+    "gulp-jscs": "1.4.0"
+  },
+  "scripts": {
+    "test": "gulp check"
+  }
+}
