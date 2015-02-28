@@ -2,7 +2,9 @@ language: node_js
 
 node_js:
   - 0.10
+  - 0.12
 
 script:
   - node index.js
   - ./node_modules/.bin/gulp check:ci
+  - npm run-script build-demo
