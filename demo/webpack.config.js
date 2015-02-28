@@ -13,9 +13,20 @@ module.exports = {
     filename: "[hash].main.js"
   },
   plugins: [
+    // Try various defaults and options.
+    new StatsWriterPlugin(),
+    new StatsWriterPlugin({}),
     new StatsWriterPlugin({
       path: path.join(__dirname, "build"),
-      filename: "stats.json"
+      filename: "stats-transform.json",
+      fields: null,
+      transform: function (data) {
+        return data.assetsByChunkName;
+      }
+    }),
+    new StatsWriterPlugin({
+      path: path.join(__dirname, "build"),
+      filename: "stats-custom.json"
     })
   ]
 };

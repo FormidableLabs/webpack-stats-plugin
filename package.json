@@ -25,6 +25,7 @@
   },
   "scripts": {
     "test": "gulp check",
-    "build-demo": " webpack --config demo/webpack.config.js"
+    "clean": "rm -rf demo/stats.json demo/build",
+    "build-demo": "cd demo && webpack"
   }
 }
