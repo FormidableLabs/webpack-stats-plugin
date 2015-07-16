@@ -31,7 +31,6 @@ module.exports = {
 
     // Write out stats file to build directory.
     new StatsWriterPlugin({
-      path: path.join(__dirname, "build"),
       filename: "stats.json" // Default
     })
   ]

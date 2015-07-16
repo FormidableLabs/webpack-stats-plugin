@@ -17,7 +17,6 @@ module.exports = {
     new StatsWriterPlugin(),
     new StatsWriterPlugin({}),
     new StatsWriterPlugin({
-      path: path.join(__dirname, "build"),
       filename: "stats-transform.json",
       fields: null,
       transform: function (data) {
@@ -25,7 +24,6 @@ module.exports = {
       }
     }),
     new StatsWriterPlugin({
-      path: path.join(__dirname, "build"),
       filename: "stats-custom.json"
     })
   ]
