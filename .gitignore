@@ -10,4 +10,4 @@ npm-debug\.log
 # Build
 coverage
 demo/stats.json
-demo/build
+demo/build*

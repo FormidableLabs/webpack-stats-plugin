@@ -70,6 +70,9 @@ See:
 - http://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
 - https://github.com/webpack/docs/wiki/node.js-api#stats
 
+**Note - `filename`**: The `opts.filename` option can be a file name or path relative to
+`output.path` in webpack configuration. It should not be absolute.
+
 ## Contributions
 
 Contributions welcome! Make sure to pass `$ gulp check`.

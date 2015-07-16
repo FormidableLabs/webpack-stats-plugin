@@ -25,7 +25,7 @@
   },
   "scripts": {
     "test": "gulp check",
-    "clean": "rm -rf demo/stats.json demo/build",
-    "build-demo": "cd demo && webpack"
+    "clean": "rm -rf demo/stats.json demo/build*",
+    "build-demo": "npm run clean && cd demo && webpack"
   }
 }

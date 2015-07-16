@@ -25,6 +25,10 @@ module.exports = {
     }),
     new StatsWriterPlugin({
       filename: "stats-custom.json"
+    }),
+    // Relative paths work, but absolute paths do not currently.
+    new StatsWriterPlugin({
+      filename: "../build2/stats-custom2.json"
     })
   ]
 };
