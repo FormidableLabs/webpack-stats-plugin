@@ -20,7 +20,17 @@ module.exports = {
       filename: "stats-transform.json",
       fields: null,
       transform: function (data) {
-        return data.assetsByChunkName;
+        return JSON.stringify(data.assetsByChunkName, null, 2);
+      }
+    }),
+    new StatsWriterPlugin({
+      filename: "stats-transform.md",
+      fields: null,
+      transform: function (data) {
+        var assetsByChunkName = data.assetsByChunkName;
+        return Object.keys(assetsByChunkName).reduce(function (acc, key) {
+          return acc += key + " | " + assetsByChunkName[key] + "\n";
+        }, "Name | Asset\n:--- | :----\n");
       }
     }),
     new StatsWriterPlugin({
