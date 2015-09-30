@@ -5,10 +5,10 @@ Webpack Stats Plugin
 
 This plugin will ingest the webpack
 [stats](https://github.com/webpack/docs/wiki/node.js-api#stats) object,
-process / tranform the object and write out to a file for further consumption.
+process / transform the object and write out to a file for further consumption.
 
 The most common use case is building a hashed bundle and wanting to
-programmatically referring to the correct bundle path in your Node.js server.
+programmatically refer to the correct bundle path in your Node.js server.
 
 ## Installation
 
