@@ -45,7 +45,7 @@ module.exports = {
 * **opts** (`Object`) options
 * **opts.filename** (`String`) output file name (Default: &quot;stat.json&quot;)
 * **opts.fields** (`Array`) fields of stats obj to keep (Default: \[&quot;assetsByChunkName&quot;\])
-* **opts.transform** (`Function`) transform function of stats object before writing
+* **opts.transform** (`Function`) transform stats obj (Default: `JSON.stringify()`)
 
 Stats writer module.
 
@@ -70,8 +70,13 @@ See:
 - http://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
 - https://github.com/webpack/docs/wiki/node.js-api#stats
 
-**Note - `filename`**: The `opts.filename` option can be a file name or path relative to
+**`filename`**: The `opts.filename` option can be a file name or path relative to
 `output.path` in webpack configuration. It should not be absolute.
+
+**`transform`**: By default, the retrieved stats object is `JSON.stringify`'ed
+but by supplying an alternate transform you can target _any_ output format.
+See [`demo/webpack.config.js`](demo/webpack.config.js) for various examples
+including Markdown output.
 
 ## Contributions
 
