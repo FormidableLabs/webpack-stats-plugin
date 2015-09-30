@@ -1,6 +1,11 @@
 History
 =======
 
+## 0.1.1
+
+* Allow `opts.transform` to output arbitrary formats.
+  (*[@tanem][]*)
+
 ## 0.1.0
 
 * Emit stat file in compilation assets, allowing use in webpack-dev-server / webpack-stream.
@@ -21,3 +26,4 @@ History
 
 [@ryan-roemer]: https://github.com/ryan-roemer
 [@seanchas116]: https://github.com/seanchas116
+[@tanem]: https://github.com/tanem
