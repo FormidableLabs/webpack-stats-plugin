@@ -34,6 +34,14 @@ module.exports = {
       }
     }),
     new StatsWriterPlugin({
+      filename: "stats-transform-custom-obj.json",
+      transform: function (data) {
+        return JSON.stringify({
+          main: data.assetsByChunkName.main[0]
+        }, null, 2);
+      }
+    }),
+    new StatsWriterPlugin({
       filename: "stats-custom.json"
     }),
     // Relative paths work, but absolute paths do not currently.

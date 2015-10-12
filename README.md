@@ -20,7 +20,10 @@ $ npm install --save webpack-stats-plugin
 
 ## Examples
 
-### Stats Writer Plugin
+You can see lots of examples at
+[`demo/webpack.config.js`](demo/webpack.config.js).
+
+### Basic
 
 ```js
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
@@ -32,6 +35,25 @@ module.exports = {
     // Write out stats file to build directory.
     new StatsWriterPlugin({
       filename: "stats.json" // Default
+    })
+  ]
+}
+```
+
+### Custom Transform Function
+
+```js
+var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+
+module.exports = {
+  plugins: [
+    new StatsWriterPlugin({
+      transform: function (data) {
+        return JSON.stringify({
+          main: data.assetsByChunkName.main[0],
+          css: data.assetsByChunkName.main[1]
+        }, null, 2);
+      }
     })
   ]
 }
@@ -77,6 +99,12 @@ See:
 but by supplying an alternate transform you can target _any_ output format.
 See [`demo/webpack.config.js`](demo/webpack.config.js) for various examples
 including Markdown output.
+
+- **Warning**: The output of `transform` should be a `String`, not an object.
+  On Node `v4.x` if you return a real object in `transform`, then webpack
+  will break with a `TypeError` (See #8). Just adding a simple
+  `JSON.stringify()` around your object is usually what you need to solve
+  any problems.
 
 ## Contributions
 
