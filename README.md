@@ -102,7 +102,7 @@ including Markdown output.
 
 - **Warning**: The output of `transform` should be a `String`, not an object.
   On Node `v4.x` if you return a real object in `transform`, then webpack
-  will break with a `TypeError` (See #8). Just adding a simple
+  will break with a `TypeError` (See [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just adding a simple
   `JSON.stringify()` around your object is usually what you need to solve
   any problems.
 
