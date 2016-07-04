@@ -59,6 +59,25 @@ module.exports = {
 }
 ```
 
+### Transform Function Can Return a Promise.
+
+```js
+var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+
+module.exports = {
+  plugins: [
+    new StatsWriterPlugin({
+      transform: function (data) {
+         return new Promise(function(resolve,reject) {
+             var result = {result:"Hello World",data:data};
+             resolve(JSON.stringify(result));
+         });
+      }
+    })
+  ]
+}
+```
+
 ## Plugins
 
 * [`StatsWriterPlugin(opts)`](#statswriterplugin-opts-)
