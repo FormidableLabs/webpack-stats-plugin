@@ -1,10 +1,14 @@
 History
 =======
 
-## Unreleased
+## 0.1.3
 
 * Add `opts.compiler` to transform function.
   (*[@vlkosinov][]*)
+
+## 0.1.2
+
+* _Bad release_
 
 ## 0.1.1
 
