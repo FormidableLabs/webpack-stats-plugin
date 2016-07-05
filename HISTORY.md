@@ -1,6 +1,11 @@
 History
 =======
 
+## Unreleased
+
+* Add `opts.compiler` to transform function.
+  (*[@vlkosinov][]*)
+
 ## 0.1.1
 
 * Allow `opts.transform` to output arbitrary formats.
@@ -27,3 +32,4 @@ History
 [@ryan-roemer]: https://github.com/ryan-roemer
 [@seanchas116]: https://github.com/seanchas116
 [@tanem]: https://github.com/tanem
+[@vlkosinov]: https://github.com/vlkosinov
