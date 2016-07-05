@@ -42,13 +42,29 @@ module.exports = {
 
 ### Custom Transform Function
 
+The transform function has a signature of:
+
+```js
+/**
+ * Transform skeleton.
+ *
+ * @param {Object} data           Stats object
+ * @param {Object} opts           Options
+ * @param {Object} opts.compiler  Current compiler instance
+ * @returns {String}              String to emit to file
+ */
+function (data, opts) {}
+```
+
+which you can use like:
+
 ```js
 var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 module.exports = {
   plugins: [
     new StatsWriterPlugin({
-      transform: function (data) {
+      transform: function (data, opts) {
         return JSON.stringify({
           main: data.assetsByChunkName.main[0],
           css: data.assetsByChunkName.main[1]
