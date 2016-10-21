@@ -1,6 +1,9 @@
 History
 =======
 
+## 0.1.4
+* Add constructor definition.  new plugin().constructor.name === 'StatsWriterPlugin';
+
 ## 0.1.3
 
 * Add `opts.compiler` to transform function.
