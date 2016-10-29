@@ -37,7 +37,7 @@ module.exports = {
       filename: "stats-transform-custom-obj.json",
       transform: function (data) {
         return JSON.stringify({
-          main: data.assetsByChunkName.main[0]
+          main: data.assetsByChunkName.main
         }, null, 2);
       }
     }),

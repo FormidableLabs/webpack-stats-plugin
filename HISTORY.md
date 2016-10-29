@@ -2,12 +2,15 @@ History
 =======
 
 ## 0.1.4
-* Add constructor definition.  new plugin().constructor.name === 'StatsWriterPlugin';
+
+* Add constructor definition.
+  (*[@vlkosinov][]*)
 
 ## 0.1.3
 
 * Add `opts.compiler` to transform function.
-  (*[@vlkosinov][]*)
+  [#15](https://github.com/FormidableLabs/webpack-stats-plugin/issues/15)
+  (*[@lostrouter][]*)
 
 ## 0.1.2
 
@@ -36,6 +39,7 @@ History
 
 * Is embarassing and shall be forgotten.
 
+[@lostrouter]: https://github.com/lostrouter
 [@ryan-roemer]: https://github.com/ryan-roemer
 [@seanchas116]: https://github.com/seanchas116
 [@tanem]: https://github.com/tanem
