@@ -1,6 +1,11 @@
 History
 =======
 
+## 0.1.5
+
+* Slim down published npm package.
+  (*[@evilebottnawi][]*)
+
 ## 0.1.4
 
 * Add constructor definition.
@@ -39,6 +44,7 @@ History
 
 * Is embarassing and shall be forgotten.
 
+[@evilebottnawi]: https://github.com/evilebottnawi
 [@lostrouter]: https://github.com/lostrouter
 [@ryan-roemer]: https://github.com/ryan-roemer
 [@seanchas116]: https://github.com/seanchas116

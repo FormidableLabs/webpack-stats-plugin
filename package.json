@@ -1,6 +1,6 @@
 {
   "name": "webpack-stats-plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Webpack stats plugin",
   "main": "webpack-stats-plugin.js",
   "dependencies": {},
@@ -24,7 +24,6 @@
     "url": "https://github.com/FormidableLabs/webpack-stats-plugin/issues"
   },
   "files": [
-    "!demo",
     "lib",
     "index.js"
   ],
