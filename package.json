@@ -23,6 +23,11 @@
   "bugs": {
     "url": "https://github.com/FormidableLabs/webpack-stats-plugin/issues"
   },
+  "files": [
+    "!demo",
+    "lib",
+    "index.js"
+  ],
   "scripts": {
     "test": "gulp check",
     "clean": "rm -rf demo/stats.json demo/build*",
