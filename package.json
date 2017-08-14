@@ -1,6 +1,6 @@
 {
   "name": "webpack-stats-plugin",
-  "version": "0.1.5",
+  "version": "0.1.5-regru",
   "description": "Webpack stats plugin",
   "main": "webpack-stats-plugin.js",
   "dependencies": {},
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FormidableLabs/webpack-stats-plugin"
+    "url": "https://github.com/shifteee/webpack-stats-plugin"
   },
   "keywords": [
     "webpack"
@@ -21,7 +21,7 @@
   "author": "Ryan Roemer <ryan.roemer@formidablelabs.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FormidableLabs/webpack-stats-plugin/issues"
+    "url": "https://github.com/shifteee/webpack-stats-plugin/issues"
   },
   "files": [
     "lib",
