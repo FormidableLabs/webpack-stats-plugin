@@ -1,5 +1,8 @@
 History
 =======
+## 0.1.5-regru
+
+* Stats is now always written to disk
 
 ## 0.1.5
 
