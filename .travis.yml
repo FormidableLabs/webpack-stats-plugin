@@ -10,5 +10,5 @@ sudo: false
 
 script:
   - node index.js
-  - node_modules/.bin/gulp check:ci
-  - npm run build-demo
+  - yarn run test
+  - yarn run build-demo
