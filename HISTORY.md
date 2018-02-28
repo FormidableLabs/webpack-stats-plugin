@@ -1,7 +1,7 @@
 History
 =======
 
-## Unreleased
+## 0.2.0
 
 * **Breaking**: Update to node4+.
 * Webpack4 compatibility.
