@@ -4,13 +4,13 @@
  * Webpack configuration
  */
 const path = require("path");
-const StatsWriterPlugin = require("../index").StatsWriterPlugin;
+const StatsWriterPlugin = require("../../index").StatsWriterPlugin;
 const INDENT = 2;
 
 module.exports = {
   cache: true,
   context: __dirname,
-  entry: "./main.js",
+  entry: "../src/main.js",
   output: {
     path: path.join(__dirname, "build"),
     filename: "[hash].main.js"

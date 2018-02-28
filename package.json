@@ -24,9 +24,10 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint",
-    "clean": "rm -rf demo/stats.json demo/build*",
-    "build-demo": "npm run clean && cd demo && webpack"
+    "test": "yarn run test:clean && yarn run test:build",
+    "test:clean": "rm -rf test/*/build",
+    "test:build": "cd test/webpack1 && echo TODO",
+    "check": "yarn run lint && yarn run test"
   },
   "dependencies": {},
   "devDependencies": {
@@ -36,6 +37,6 @@
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-promise": "^3.6.0",
-    "webpack": "^3.11.0"
+    "webpack1": "file:test/webpack1"
   }
 }

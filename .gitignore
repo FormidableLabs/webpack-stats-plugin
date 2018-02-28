@@ -10,5 +10,4 @@ yarn-error.log*
 
 # Build
 coverage
-demo/stats.json
-demo/build*
+test/*/build*

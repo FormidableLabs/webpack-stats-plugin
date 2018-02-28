@@ -15,13 +15,14 @@ programmatically refer to the correct bundle path in your Node.js server.
 The plugin is available via [npm](https://www.npmjs.com/package/webpack-stats-plugin):
 
 ```
-$ npm install --save webpack-stats-plugin
+$ npm install --save-dev webpack-stats-plugin
+$ yarn add --dev webpack-stats-plugin
 ```
 
 ## Examples
 
-You can see lots of examples at
-[`demo/webpack.config.js`](demo/webpack.config.js).
+We have example webpack configurations for all versions of webpack. See., e.g.
+[`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js).
 
 ### Basic
 
@@ -113,19 +114,43 @@ See:
 
 **`transform`**: By default, the retrieved stats object is `JSON.stringify`'ed
 but by supplying an alternate transform you can target _any_ output format.
-See [`demo/webpack.config.js`](demo/webpack.config.js) for various examples
-including Markdown output.
+See [`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js) for
+various examples including Markdown output.
 
-- **Warning**: The output of `transform` should be a `String`, not an object.
-  On Node `v4.x` if you return a real object in `transform`, then webpack
-  will break with a `TypeError` (See [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just adding a simple
-  `JSON.stringify()` around your object is usually what you need to solve
-  any problems.
+- **Warning**: The output of `transform` should be a `String`, not an object. On
+  Node `v4.x` if you return a real object in `transform`, then webpack will
+  break with a `TypeError` (See
+  [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just
+  adding a simple `JSON.stringify()` around your object is usually what you need
+  to solve any problems.
 
 ## Contributions
 
-Contributions welcome! Make sure to pass `$ yarn run test`.
+Contributions welcome! We use [yarn workspaces][] to test all supported versions
+of webpack.
+
+Install:
+
+```sh
+$ yarn
+```
+
+Our tests first do various webpack builds and then run mocha asserts on the real
+outputted stats files. Inefficient, but for our small sample size efficient
+enough.
+
+```sh
+# Lint and tests
+$ yarn run lint
+$ yarn run test
+
+# All together
+$ yarn run check
+```
+
+
 
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg
 [trav_site]: https://travis-ci.org/FormidableLabs/webpack-stats-plugin
+[yarn workspaces]: https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/
