@@ -2,15 +2,7 @@
   "name": "webpack-stats-plugin",
   "version": "0.1.5",
   "description": "Webpack stats plugin",
-  "main": "webpack-stats-plugin.js",
-  "dependencies": {},
-  "devDependencies": {
-    "gulp": "3.8.10",
-    "gulp-eslint": "0.2.2",
-    "gulp-jscs": "1.4.0",
-    "gulp-mdox": "0.0.2",
-    "webpack": "1.6.0"
-  },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/FormidableLabs/webpack-stats-plugin"
@@ -18,7 +10,7 @@
   "keywords": [
     "webpack"
   ],
-  "author": "Ryan Roemer <ryan.roemer@formidablelabs.com>",
+  "author": "Ryan Roemer <ryan.roemer@formidable.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FormidableLabs/webpack-stats-plugin/issues"
@@ -27,9 +19,23 @@
     "lib",
     "index.js"
   ],
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
-    "test": "gulp check",
+    "lint": "eslint .",
+    "test": "npm run lint",
     "clean": "rm -rf demo/stats.json demo/build*",
     "build-demo": "npm run clean && cd demo && webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.18.1",
+    "eslint-config-formidable": "^3.0.0",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "webpack": "^3.11.0"
   }
 }

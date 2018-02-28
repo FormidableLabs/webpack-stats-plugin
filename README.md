@@ -26,7 +26,7 @@ You can see lots of examples at
 ### Basic
 
 ```js
-var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 module.exports = {
   plugins: [
@@ -59,12 +59,12 @@ function (data, opts) {}
 which you can use like:
 
 ```js
-var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 module.exports = {
   plugins: [
     new StatsWriterPlugin({
-      transform: function (data, opts) {
+      transform(data, opts) {
         return JSON.stringify({
           main: data.assetsByChunkName.main[0],
           css: data.assetsByChunkName.main[1]
@@ -124,7 +124,7 @@ including Markdown output.
 
 ## Contributions
 
-Contributions welcome! Make sure to pass `$ gulp check`.
+Contributions welcome! Make sure to pass `$ yarn run test`.
 
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg

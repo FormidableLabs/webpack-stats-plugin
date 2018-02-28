@@ -1,6 +1,12 @@
 History
 =======
 
+## Unreleased
+
+* **Breaking**: Update to node4+.
+* Webpack4 compatibility.
+  (*[@jdelStrother][]*)
+
 ## 0.1.5
 
 * Slim down published npm package.
