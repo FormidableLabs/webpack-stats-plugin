@@ -9,9 +9,13 @@
 const path = require("path");
 const pify = require("pify");
 const fs = pify(require("fs"));
+const expect = require("chai").expect;
 
 const BUILD_DIRS = ["build", "build2"];
 const WEBPACKS = [1, 2, 3, 4].map((n) => `webpack${n}`);
+
+// Specific hash regex to abstract.
+const HASH_RE = /[0-9a-f]{20}/gm;
 
 // Read files to an object.
 const readBuild = (buildDir) => {
@@ -26,6 +30,8 @@ const readBuild = (buildDir) => {
       .map((list, idx) => list.map((file) => path.join(BUILD_DIRS[idx], file)))
       // Flatten.
       .reduce((memo, list) => memo.concat(list), [])
+      // Remove "main.js"
+      .filter((file) => !/\.main\.js$/.test(file))
     )
     // Read all objects to a string.
     .then((flatFiles) => { files = flatFiles })
@@ -34,7 +40,7 @@ const readBuild = (buildDir) => {
     ))
     .then((data) => {
       return data.reduce((memo, data, idx) => {
-        memo[files[idx]] = data.toString();
+        memo[files[idx]] = data.toString().replace(HASH_RE, "HASH");
         return memo;
       }, {});
     });
@@ -52,10 +58,15 @@ WEBPACKS.forEach((webpack) => {
   let actuals;
 
   before(() => {
-
+    return readBuild(webpack)
+      .then((data) => { actuals = data; });
   });
 
   describe(webpack, () => {
-    it("TODO");
+    it("matches expected files", () => {
+      Object.keys(expecteds).forEach((fileKey) => {
+        expect(actuals[fileKey], fileKey).to.equal(expecteds[fileKey]);
+      });
+    });
   });
 });
