@@ -1,4 +1,6 @@
 "use strict";
+/*eslint-env mocha*/
+/*eslint-disable max-nested-callbacks*/
 
 /**
  * Functional tests.
@@ -12,7 +14,7 @@ const fs = pify(require("fs"));
 const expect = require("chai").expect;
 
 const BUILD_DIRS = ["build", "build2"];
-const WEBPACKS = [1, 2, 3, 4].map((n) => `webpack${n}`);
+const WEBPACKS = [1, 2, 3, 4].map((n) => `webpack${n}`); // eslint-disable-line no-magic-numbers
 
 // Specific hash regex to abstract.
 const HASH_RE = /[0-9a-f]{20}/gm;
@@ -34,17 +36,17 @@ const readBuild = (buildDir) => {
       .filter((file) => !/\.main\.js$/.test(file))
     )
     // Read all objects to a string.
-    .then((flatFiles) => { files = flatFiles })
+    .then((flatFiles) => { files = flatFiles; })
     .then(() => Promise.all(
       files.map((file) => fs.readFile(path.join(__dirname, buildDir, file)))
     ))
     .then((data) => {
-      return data.reduce((memo, data, idx) => {
-        memo[files[idx]] = data.toString().replace(HASH_RE, "HASH");
+      return data.reduce((memo, fileData, idx) => {
+        memo[files[idx]] = fileData.toString().replace(HASH_RE, "HASH");
         return memo;
       }, {});
     });
-}
+};
 
 let expecteds;
 
