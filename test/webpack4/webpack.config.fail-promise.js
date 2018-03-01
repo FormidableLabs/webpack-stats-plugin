@@ -11,7 +11,7 @@ module.exports = Object.assign({}, base, {
     new StatsWriterPlugin({
       filename: "stats-transform-fail-promise.json",
       transform() {
-        return Promise.reject(new Error("HI"));
+        return Promise.reject(new Error("PROMISE"));
       }
     })
   ]

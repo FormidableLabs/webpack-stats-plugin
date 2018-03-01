@@ -11,7 +11,7 @@ module.exports = Object.assign({}, base, {
     new StatsWriterPlugin({
       filename: "stats-transform-fail-sync.json",
       transform() {
-        throw new Error("HI");
+        throw new Error("SYNC");
       }
     })
   ]

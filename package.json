@@ -27,7 +27,7 @@
     "test": "yarn run test:clean && yarn run test:build && yarn run test:run",
     "test:run": "mocha 'test/**/*.spec.js'",
     "test:clean": "rm -rf test/webpack*/build*",
-    "test:build:single": "cd node_modules/webpack${VERS} && node index.js --config ../../test/webpack${VERS}/webpack.config.js",
+    "test:build:single": "cd node_modules/webpack${VERS} && node index.js --config ../../test/webpack${VERS}/webpack.config${WP_EXTRA}.js",
     "test:build": "builder envs test:build:single '[{\"VERS\":1},{\"VERS\":2},{\"VERS\":3},{\"VERS\":4}]' --buffer",
     "check": "yarn run lint && yarn run test"
   },
