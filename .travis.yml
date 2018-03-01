@@ -8,7 +8,10 @@ node_js:
 
 sudo: false
 
+branches:
+  only:
+    - master
+
 script:
   - node index.js
-  - yarn run test
-  - yarn run build-demo
+  - yarn run check
