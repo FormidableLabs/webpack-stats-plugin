@@ -1,6 +1,11 @@
 History
 =======
 
+## Unreleased
+
+* Allow `opts.transform` to be a `Promise` as well as a `Function`.
+  [#27](https://github.com/FormidableLabs/webpack-stats-plugin/issues/27)
+
 ## 0.2.0
 
 * **Breaking**: Update to node4+.
