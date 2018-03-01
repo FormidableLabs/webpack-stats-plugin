@@ -26,17 +26,22 @@
     "lint": "eslint .",
     "test": "yarn run test:clean && yarn run test:build",
     "test:clean": "rm -rf test/*/build",
-    "test:build": "cd test/webpack1 && echo TODO",
+    "test:build:single": "cd node_modules/webpack${VERS} && node index.js --config ../../test/webpack${VERS}/webpack.config.js",
+    "test:build": "builder envs test:build:single '[{\"VERS\":1},{\"VERS\":2},{\"VERS\":3},{\"VERS\":4}]' --buffer",
     "check": "yarn run lint && yarn run test"
   },
   "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^8.2.2",
+    "builder": "^4.0.0",
     "eslint": "^4.18.1",
     "eslint-config-formidable": "^3.0.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-promise": "^3.6.0",
-    "webpack1": "file:test/webpack1"
+    "webpack1": "file:test/webpack1",
+    "webpack2": "file:test/webpack2",
+    "webpack3": "file:test/webpack3",
+    "webpack4": "file:test/webpack4"
   }
 }
