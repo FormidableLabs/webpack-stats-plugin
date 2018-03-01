@@ -76,6 +76,27 @@ module.exports = {
 }
 ```
 
+### Promise transform
+
+You can use an asynchronous promise to transform as well:
+
+```js
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+
+module.exports = {
+  plugins: [
+    new StatsWriterPlugin({
+      filename: "stats-transform-promise.json",
+      transform(data) {
+        return Promise.resolve().then(() => JSON.stringify({
+          main: data.assetsByChunkName.main
+        }, null, INDENT));
+      }
+    })
+  ]
+}
+```
+
 ## Plugins
 
 * [`StatsWriterPlugin(opts)`](#statswriterplugin-opts-)
@@ -84,7 +105,7 @@ module.exports = {
 * **opts** (`Object`) options
 * **opts.filename** (`String`) output file name (Default: &quot;stat.json&quot;)
 * **opts.fields** (`Array`) fields of stats obj to keep (Default: \[&quot;assetsByChunkName&quot;\])
-* **opts.transform** (`Function`) transform stats obj (Default: `JSON.stringify()`)
+* **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
 
 Stats writer module.
 

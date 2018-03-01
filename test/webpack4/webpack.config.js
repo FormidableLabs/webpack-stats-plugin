@@ -51,6 +51,20 @@ module.exports = {
     // Relative paths work, but absolute paths do not currently.
     new StatsWriterPlugin({
       filename: "../build2/stats-custom2.json"
+    }),
+    // Promise transform
+    new StatsWriterPlugin({
+      filename: "stats-transform-promise.json",
+      transform(data) {
+        return Promise.resolve()
+          // Force async.
+          .then(() => new Promise((res) => {
+            process.nextTick(res);
+          }))
+          .then(() => JSON.stringify({
+            main: data.assetsByChunkName.main
+          }, null, INDENT));
+      }
     })
   ]
 };
