@@ -1,12 +1,17 @@
 language: node_js
 
 node_js:
-  - "0.10"
-  - "0.12"
+  - "4"
+  - "6"
+  - "8"
+  - "9"
 
 sudo: false
 
+branches:
+  only:
+    - master
+
 script:
   - node index.js
-  - node_modules/.bin/gulp check:ci
-  - npm run build-demo
+  - yarn run check

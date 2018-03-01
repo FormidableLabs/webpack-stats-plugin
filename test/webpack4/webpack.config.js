@@ -1,17 +1,21 @@
+"use strict";
+
 /**
  * Webpack configuration
  */
-var path = require("path");
-var StatsWriterPlugin = require("../index").StatsWriterPlugin;
+const path = require("path");
+const StatsWriterPlugin = require("../../index").StatsWriterPlugin;
+const INDENT = 2;
 
 module.exports = {
-  cache: true,
+  mode: "development",
   context: __dirname,
-  entry: "./main.js",
+  entry: "../src/main.js",
   output: {
     path: path.join(__dirname, "build"),
     filename: "[hash].main.js"
   },
+  devtool: false,
   plugins: [
     // Try various defaults and options.
     new StatsWriterPlugin(),
@@ -19,26 +23,26 @@ module.exports = {
     new StatsWriterPlugin({
       filename: "stats-transform.json",
       fields: null,
-      transform: function (data) {
-        return JSON.stringify(data.assetsByChunkName, null, 2);
+      transform(data) {
+        return JSON.stringify(data.assetsByChunkName, null, INDENT);
       }
     }),
     new StatsWriterPlugin({
       filename: "stats-transform.md",
       fields: null,
-      transform: function (data) {
-        var assetsByChunkName = data.assetsByChunkName;
-        return Object.keys(assetsByChunkName).reduce(function (acc, key) {
-          return acc += key + " | " + assetsByChunkName[key] + "\n";
+      transform(data) {
+        const assetsByChunkName = data.assetsByChunkName;
+        return Object.keys(assetsByChunkName).reduce((memo, key) => {
+          return `${memo}${key } | ${ assetsByChunkName[key] }\n`;
         }, "Name | Asset\n:--- | :----\n");
       }
     }),
     new StatsWriterPlugin({
       filename: "stats-transform-custom-obj.json",
-      transform: function (data) {
+      transform(data) {
         return JSON.stringify({
           main: data.assetsByChunkName.main
-        }, null, 2);
+        }, null, INDENT);
       }
     }),
     new StatsWriterPlugin({

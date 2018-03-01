@@ -5,9 +5,10 @@
 \.project
 bower_components
 node_modules
-npm-debug\.log
+npm-debug.log*
+yarn-error.log*
 
 # Build
 coverage
-demo/stats.json
-demo/build*
+test/*/build*
+!test/expected/build*
