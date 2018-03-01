@@ -19,12 +19,21 @@ const WEBPACKS = [1, 2, 3, 4].map((n) => `webpack${n}`); // eslint-disable-line 
 // Specific hash regex to abstract.
 const HASH_RE = /[0-9a-f]{20}/gm;
 
+// Permissively allow empty files.
+const allowEmpty = (err) => {
+  if (err.code === "ENOENT") {
+    return [];
+  }
+
+  throw err;
+};
+
 // Read files to an object.
 const readBuild = (buildDir) => {
   let files;
 
   return Promise.all(BUILD_DIRS.map(
-    (dir) => fs.readdir(path.join(__dirname, buildDir, dir))
+    (dir) => fs.readdir(path.join(__dirname, buildDir, dir)).catch(allowEmpty)
   ))
     // Create a flat list of files in an array.
     .then((dirs) => dirs
@@ -40,34 +49,36 @@ const readBuild = (buildDir) => {
     .then(() => Promise.all(
       files.map((file) => fs.readFile(path.join(__dirname, buildDir, file)))
     ))
-    .then((data) => {
-      return data.reduce((memo, fileData, idx) => {
-        memo[files[idx]] = fileData.toString().replace(HASH_RE, "HASH");
-        return memo;
-      }, {});
-    });
+    // Create an object of `{ FILE_PATH: STRING_VALUE }`
+    .then((data) => data.reduce((m, v, i) =>
+      Object.assign(m || {}, { [files[i]]: v.toString().replace(HASH_RE, "HASH") }), null)
+    );
 };
 
 let expecteds;
+const actuals = {};
 
 // Read in expected fixtures.
-before(() => {
-  return readBuild("expected")
-    .then((data) => { expecteds = data; });
-});
+before(() => readBuild("expected").then((data) => { expecteds = data; }));
 
+// Dynamically create suites and tests.
 WEBPACKS.forEach((webpack) => {
-  let actuals;
-
-  before(() => {
-    return readBuild(webpack)
-      .then((data) => { actuals = data; });
-  });
+  before(() => readBuild(webpack).then((data) => { actuals[webpack] = data; }));
 
   describe(webpack, () => {
-    it("matches expected files", () => {
+    it("matches expected files", function () {
+      const actual = actuals[webpack];
+
+      // Allow webpack4 to have no files if all other webpacks have the right
+      // number of files to account for node4 not being supported.
+      if (webpack === "webpack4" && !actual &&
+          actuals.webpack1 && actuals.webpack2 && actuals.webpack3) {
+        // Dynamically skip.
+        return void this.skip(); // eslint-disable-line no-invalid-this
+      }
+
       Object.keys(expecteds).forEach((fileKey) => {
-        expect(actuals[fileKey], fileKey).to.equal(expecteds[fileKey]);
+        expect(actual[fileKey], fileKey).to.equal(expecteds[fileKey]);
       });
     });
   });

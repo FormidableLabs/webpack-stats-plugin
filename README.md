@@ -126,10 +126,12 @@ various examples including Markdown output.
 
 ## Contributions
 
-Contributions welcome! We use [yarn workspaces][] to test all supported versions
-of webpack.
+Contributions welcome!
 
-Install:
+We test against all versions of webpack. For a full explanation of our
+functional tests, see [test/README.md](test/README.md)
+
+To get started, first install:
 
 ```sh
 $ yarn
@@ -147,8 +149,6 @@ $ yarn run test
 # All together
 $ yarn run check
 ```
-
-
 
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg
