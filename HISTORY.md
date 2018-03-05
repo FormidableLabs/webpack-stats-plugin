@@ -1,5 +1,11 @@
 History
 =======
+## 0.2.0-regru
+
+* **Breaking**: Update to node4+.
+* Webpack4 compatibility.
+  (*[@jdelStrother][]*)
+
 ## 0.1.5-regru
 
 * Stats is now always written to disk
