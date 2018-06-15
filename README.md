@@ -27,7 +27,7 @@ We have example webpack configurations for all versions of webpack. See., e.g.
 ### Basic
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("webpack-stats-plugin")
 
 module.exports = {
   plugins: [
