@@ -6,6 +6,24 @@
 const path = require("path");
 const StatsWriterPlugin = require("../../index").StatsWriterPlugin;
 const INDENT = 2;
+const STAT_RESET = Object.freeze({
+  // fallback for new stuff added after v3
+  all: false,
+  // explicitly turn off older fields
+  // (webpack <= v2.7.0 does not support "all")
+  performance: false,
+  hash: false,
+  version: false,
+  timings: false,
+  entrypoints: false,
+  chunks: false,
+  chunkModules: false,
+  cached: false,
+  cachedAssets: false,
+  children: false,
+  moduleTrace: false,
+  assets: false
+});
 
 module.exports = {
   mode: "development",
@@ -33,7 +51,7 @@ module.exports = {
       transform(data) {
         const assetsByChunkName = data.assetsByChunkName;
         return Object.keys(assetsByChunkName).reduce((memo, key) => {
-          return `${memo}${key } | ${ assetsByChunkName[key] }\n`;
+          return `${memo}${key} | ${assetsByChunkName[key]}\n`;
         }, "Name | Asset\n:--- | :----\n");
       }
     }),
@@ -64,6 +82,49 @@ module.exports = {
           .then(() => JSON.stringify({
             main: data.assetsByChunkName.main
           }, null, INDENT));
+      }
+    }),
+    // Custom stats
+    new StatsWriterPlugin({
+      filename: "stats-custom-stats.json",
+      stats: Object.assign({}, STAT_RESET, {
+        assets: true
+      }),
+      transform(data) {
+        // webpack >= v3 adds this field unconditionally, so remove it
+        delete data.filteredAssets;
+        return JSON.stringify(data, null, INDENT);
+      }
+    }),
+    new StatsWriterPlugin({
+      filename: "stats-custom-stats-fields.json",
+      fields: ["errors", "warnings", "assets"],
+      stats: Object.assign({}, STAT_RESET, {
+        assets: true
+      })
+    }),
+    new StatsWriterPlugin({
+      filename: "stats-override-tostring-opt.json",
+      stats: Object.assign({}, STAT_RESET, {
+        // chunks are normally omitted due to second argument of .toJson()
+        chunks: true
+      }),
+      transform(data) {
+        // normalize subset of chunk metadata across all versions of webpack
+        data.chunks = data.chunks.map((chunk) => {
+          return [
+            "rendered",
+            "initial",
+            "entry",
+            "size",
+            "names",
+            "parents"
+          ].reduce((obj, key) => {
+            obj[key] = chunk[key];
+            return obj;
+          }, {});
+        });
+        return JSON.stringify(data, null, INDENT);
       }
     })
   ]

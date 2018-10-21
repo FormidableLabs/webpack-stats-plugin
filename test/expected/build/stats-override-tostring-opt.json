@@ -1,0 +1,16 @@
+{
+  "errors": [],
+  "warnings": [],
+  "chunks": [
+    {
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "size": 102,
+      "names": [
+        "main"
+      ],
+      "parents": []
+    }
+  ]
+}
