@@ -127,7 +127,7 @@ only include those. However, if you want the _whole thing_ (maybe doing an
 get **all** of the stats object.
 
 See:
-- http://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
+- https://github.com/webpack/docs/wiki/long-term-caching#get-filenames-from-stats
 - https://github.com/webpack/docs/wiki/node.js-api#stats
 
 **`filename`**: The `opts.filename` option can be a file name or path relative to
