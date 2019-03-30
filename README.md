@@ -4,7 +4,7 @@ Webpack Stats Plugin
 [![Build Status][trav_img]][trav_site]
 
 This plugin will ingest the webpack
-[stats](https://github.com/webpack/docs/wiki/node.js-api#stats) object,
+[stats](https://webpack.js.org/api/stats/) object,
 process / transform the object and write out to a file for further consumption.
 
 The most common use case is building a hashed bundle and wanting to
