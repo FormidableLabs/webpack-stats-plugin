@@ -34,7 +34,7 @@ $ webpack-cli --plugin webpack-stats-plugin/lib/stats-writer-plugin
 
 ### Basic
 
-A basic configuration-based integration:
+A basic `webpack.config.js`-based integration:
 
 ```js
 const { StatsWriterPlugin } = require("webpack-stats-plugin")
@@ -137,8 +137,8 @@ only include those. However, if you want the _whole thing_ (maybe doing an
 get **all** of the stats object.
 
 See:
-- http://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
-- https://github.com/webpack/docs/wiki/node.js-api#stats
+- https://webpack.js.org/configuration/stats/
+- https://webpack.js.org/api/stats/
 
 **`filename`**: The `opts.filename` option can be a file name or path relative to
 `output.path` in webpack configuration. It should not be absolute.
