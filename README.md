@@ -24,7 +24,17 @@ $ yarn add --dev webpack-stats-plugin
 We have example webpack configurations for all versions of webpack. See., e.g.
 [`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js).
 
+### CLI
+
+If you are using `webpack-cli`, you can enable with:
+
+```sh
+$ webpack-cli --plugin webpack-stats-plugin/lib/stats-writer-plugin
+```
+
 ### Basic
+
+A basic configuration-based integration:
 
 ```js
 const { StatsWriterPlugin } = require("webpack-stats-plugin")
