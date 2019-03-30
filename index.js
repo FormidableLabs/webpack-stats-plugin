@@ -2,6 +2,5 @@
 
 const StatsWriterPlugin = require("./lib/stats-writer-plugin");
 
-module.exports = {
-  StatsWriterPlugin
-};
+module.exports = StatsWriterPlugin;
+module.exports.StatsWriterPlugin = StatsWriterPlugin;

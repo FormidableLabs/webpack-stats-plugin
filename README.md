@@ -24,7 +24,17 @@ $ yarn add --dev webpack-stats-plugin
 We have example webpack configurations for all versions of webpack. See., e.g.
 [`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js).
 
+### CLI Usage
+
+You can use this plugin without any `webpack.config.js` configuration to generate all stats directly to `stats.json`.
+
+```bash
+webpack --plugin webpack-stats-plugin
+```
+
 ### Basic
+
+You can also add the plugin to your `webpack.config.js`:
 
 ```js
 const { StatsWriterPlugin } = require("webpack-stats-plugin")
