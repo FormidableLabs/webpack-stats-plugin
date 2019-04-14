@@ -10,6 +10,10 @@ process / transform the object and write out to a file for further consumption.
 The most common use case is building a hashed bundle and wanting to
 programmatically refer to the correct bundle path in your Node.js server.
 
+## Maintenance Status: Active
+
+Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome. 
+
 ## Installation
 
 The plugin is available via [npm](https://www.npmjs.com/package/webpack-stats-plugin):
