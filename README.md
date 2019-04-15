@@ -2,6 +2,8 @@ Webpack Stats Plugin
 ====================
 
 [![Build Status][trav_img]][trav_site]
+[![Maintenance Status][maintenance-image]](#maintenance-status)
+
 
 This plugin will ingest the webpack
 [stats](https://webpack.js.org/api/stats/) object,
@@ -9,10 +11,6 @@ process / transform the object and write out to a file for further consumption.
 
 The most common use case is building a hashed bundle and wanting to
 programmatically refer to the correct bundle path in your Node.js server.
-
-## Maintenance Status: Active
-
-Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome. 
 
 ## Installation
 
@@ -185,7 +183,12 @@ $ yarn run test
 $ yarn run check
 ```
 
+## Maintenance Status
+
+**Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome. 
+
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg
 [trav_site]: https://travis-ci.org/FormidableLabs/webpack-stats-plugin
 [yarn workspaces]: https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/
+[maintenance-image]: https://img.shields.io/badge/maintenance-active-green.svg
