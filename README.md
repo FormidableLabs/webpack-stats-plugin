@@ -79,7 +79,7 @@ function (data, opts) {}
 which you can use like:
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
 
 module.exports = {
   plugins: [
@@ -100,7 +100,7 @@ module.exports = {
 You can use an asynchronous promise to transform as well:
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
 
 module.exports = {
   plugins: [

@@ -4,7 +4,7 @@
  * Webpack configuration
  */
 const path = require("path");
-const StatsWriterPlugin = require("../../index").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("../../index");
 const INDENT = 2;
 const STAT_RESET = Object.freeze({
   // fallback for new stuff added after v3

@@ -1,6 +1,13 @@
 History
 =======
 
+## UNRELEASED
+
+* *Feature*: Add `opts.stats` to pass custom webpack-native [stats](https://webpack.js.org/configuration/stats/#stats) config.
+  [#18](https://github.com/FormidableLabs/webpack-stats-plugin/issues/18)
+  [#31](https://github.com/FormidableLabs/webpack-stats-plugin/pull/31)
+  (*[@evocateur][]*)
+
 ## 0.2.1
 
 * *Feature*: Allow `opts.transform` to be a `Promise` as well as a `Function`.
@@ -57,6 +64,7 @@ History
 
 * Is embarassing and shall be forgotten.
 
+[@evocateur]: https://github.com/evocateur
 [@evilebottnawi]: https://github.com/evilebottnawi
 [@lostrouter]: https://github.com/lostrouter
 [@ryan-roemer]: https://github.com/ryan-roemer
