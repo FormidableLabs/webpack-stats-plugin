@@ -52,22 +52,6 @@ and we end up with **all** versions that we want!
 `node_modules` flattening performed by `yarn`. There are some complexities of
 that omitted from this guide.
 
-### webpack4 note
-
-The `webpack-stats-plugin` supports node4+ while `webpack@4` only supports
-node6+. To allow this situation in tests, we craft a slightly different scheme
-of:
-
-```js
-  "optionalDependencies": {
-    "webpack-cli": "^2.0.9",
-    "webpack": "^4.0.1"
-  }
-```
-
-In this manner, the install can _fail_ and we just detect this and skip webpack4
-tests when testing on node4.
-
 ## Build
 
 We then build files outside of git source to, e.g.:
