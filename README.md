@@ -1,9 +1,10 @@
 Webpack Stats Plugin
 ====================
 
+[![npm version][npm_img]][npm_site]
 [![Build Status][trav_img]][trav_site]
-[![Maintenance Status][maintenance-image]](#maintenance-status)
-
+[![MIT license][lic_img]][lic_site]
+[![Maintenance Status][maintenance_image]](#maintenance-status)
 
 This plugin will ingest the webpack
 [stats](https://webpack.js.org/configuration/stats/#stats) object,
@@ -211,8 +212,13 @@ $ yarn run check
 
 **Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
 
+[yarn workspaces]: https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/
+
+[npm_img]: https://badge.fury.io/js/webpack-stats-plugin.svg
+[npm_site]: http://badge.fury.io/js/webpack-stats-plugin
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg
 [trav_site]: https://travis-ci.org/FormidableLabs/webpack-stats-plugin
-[yarn workspaces]: https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/
-[maintenance-image]: https://img.shields.io/badge/maintenance-active-green.svg
+[lic_img]: https://img.shields.io/npm/l/webpack-stats-plugin.svg?color=brightgreen&style=flat
+[lic_site]: https://github.com/FormidableLabs/webpack-stats-plugin/blob/master/LICENSE.txt
+[maintenance_image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat
