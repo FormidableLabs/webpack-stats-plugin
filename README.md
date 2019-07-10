@@ -135,8 +135,8 @@ module.exports = {
 
 ### `StatsWriterPlugin(opts)`
 * **opts** (`Object`) options
-* **opts.filename** (`String`) output file name (Default: &quot;stats.json&quot;)
-* **opts.fields** (`Array`) fields of stats obj to keep (Default: \[&quot;assetsByChunkName&quot;\])
+* **opts.filename** (`String`) output file name (Default: `"stats.json"`)
+* **opts.fields** (`Array`) fields of stats obj to keep (Default: `["assetsByChunkName"]`)
 * **opts.stats** (`Object|String`) stats config object or string preset (Default: `{}`)
 * **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
 

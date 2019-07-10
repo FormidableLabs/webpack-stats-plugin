@@ -1,7 +1,7 @@
 History
 =======
 
-## UNRELEASED
+## 0.3.0
 
 * *Feature*: Add `opts.stats` to pass custom webpack-native [stats](https://webpack.js.org/configuration/stats/#stats) config.
   [#18](https://github.com/FormidableLabs/webpack-stats-plugin/issues/18)
