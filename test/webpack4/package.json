@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "optionalDependencies": {
-    "webpack-cli": "^2.0.9",
-    "webpack": "^4.0.1"
+    "webpack-cli": "^3.1.2",
+    "webpack": "^4.21.0"
   }
 }

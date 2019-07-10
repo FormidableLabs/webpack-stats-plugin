@@ -4,7 +4,7 @@
  * Fail promise.
  */
 const base = require("./webpack.config");
-const StatsWriterPlugin = require("../../index").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("../../index");
 
 module.exports = Object.assign({}, base, {
   plugins: [

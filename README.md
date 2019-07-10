@@ -6,7 +6,7 @@ Webpack Stats Plugin
 
 
 This plugin will ingest the webpack
-[stats](https://webpack.js.org/api/stats/) object,
+[stats](https://webpack.js.org/configuration/stats/#stats) object,
 process / transform the object and write out to a file for further consumption.
 
 The most common use case is building a hashed bundle and wanting to
@@ -53,6 +53,25 @@ module.exports = {
 }
 ```
 
+### Custom `stats` Configuration
+
+This option is passed to the webpack compiler's [`getStats().toJson()`][https://webpack.js.org/api/node/#stats-tojson-options-] method.
+
+```js
+const { StatsWriterPlugin } = require("webpack-stats-plugin")
+
+module.exports = {
+  plugins: [
+    new StatsWriterPlugin({
+      stats: {
+        all: false,
+        assets: true
+      }
+    })
+  ]
+}
+```
+
 ### Custom Transform Function
 
 The transform function has a signature of:
@@ -72,7 +91,7 @@ function (data, opts) {}
 which you can use like:
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
 
 module.exports = {
   plugins: [
@@ -93,7 +112,7 @@ module.exports = {
 You can use an asynchronous promise to transform as well:
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
 
 module.exports = {
   plugins: [
@@ -117,11 +136,12 @@ module.exports = {
 * **opts** (`Object`) options
 * **opts.filename** (`String`) output file name (Default: &quot;stats.json&quot;)
 * **opts.fields** (`Array`) fields of stats obj to keep (Default: \[&quot;assetsByChunkName&quot;\])
+* **opts.stats** (`Object|String`) stats config object or string preset (Default: `{}`)
 * **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
 
 Stats writer module.
 
-Stats can be a string or array (we"ll have array from using source maps):
+Stats can be a string or array (we'll have an array due to source maps):
 
 ```js
 "assetsByChunkName": {
@@ -138,9 +158,13 @@ only include those. However, if you want the _whole thing_ (maybe doing an
 `opts.transform` function), then you can set `fields: null` in options to
 get **all** of the stats object.
 
+You may also pass a custom stats config object (or string preset) via `opts.stats`
+in order to select exactly what you want added to the data passed to the transform.
+When `opts.stats` is passed, `opts.fields` will default to `null`.
+
 See:
-- https://webpack.js.org/configuration/stats/
-- https://webpack.js.org/api/stats/
+- https://webpack.js.org/configuration/stats/#stats
+- https://webpack.js.org/api/node/#stats-object
 
 **`filename`**: The `opts.filename` option can be a file name or path relative to
 `output.path` in webpack configuration. It should not be absolute.
@@ -185,7 +209,7 @@ $ yarn run check
 
 ## Maintenance Status
 
-**Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome. 
+**Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
 
 [trav]: https://travis-ci.org/
 [trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg
