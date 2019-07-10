@@ -56,7 +56,7 @@ module.exports = {
 
 ### Custom `stats` Configuration
 
-This option is passed to the webpack compiler's [`getStats().toJson()`][https://webpack.js.org/api/node/#stats-tojson-options-] method.
+This option is passed to the webpack compiler's [`getStats().toJson()`](https://webpack.js.org/api/node/#statstojsonoptions) method.
 
 ```js
 const { StatsWriterPlugin } = require("webpack-stats-plugin")
