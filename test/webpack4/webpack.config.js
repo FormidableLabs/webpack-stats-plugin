@@ -100,9 +100,11 @@ module.exports = {
         return JSON.stringify(data, null, INDENT);
       }
     }),
+    // Regression test: Missing `stats` option fields that should be default enabled.
+    // https://github.com/FormidableLabs/webpack-stats-plugin/issues/44
     new StatsWriterPlugin({
       filename: "stats-custom-stats-fields.json",
-      fields: ["errors", "warnings", "assets"] // TODO: , "publicPath"
+      fields: ["errors", "warnings", "assets", "publicPath"]
     }),
     new StatsWriterPlugin({
       filename: "stats-override-tostring-opt.json",

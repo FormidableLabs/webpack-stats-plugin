@@ -60,5 +60,6 @@
       "chunks": [],
       "chunkNames": []
     }
-  ]
+  ],
+  "publicPath": "/website-o-doom/"
 }
