@@ -17,7 +17,7 @@ programmatically refer to the correct bundle path in your Node.js server.
 
 The plugin is available via [npm](https://www.npmjs.com/package/webpack-stats-plugin):
 
-```
+```sh
 $ npm install --save-dev webpack-stats-plugin
 $ yarn add --dev webpack-stats-plugin
 ```
@@ -211,8 +211,6 @@ $ yarn run check
 ## Maintenance Status
 
 **Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
-
-[yarn workspaces]: https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/
 
 [npm_img]: https://badge.fury.io/js/webpack-stats-plugin.svg
 [npm_site]: http://badge.fury.io/js/webpack-stats-plugin

@@ -61,5 +61,17 @@
       "chunkNames": []
     }
   ],
-  "publicPath": "/website-o-doom/"
+  "publicPath": "/website-o-doom/",
+  "namedChunkGroups": {
+    "main": {
+      "chunks": [
+        "main"
+      ],
+      "assets": [
+        "6416defbb3d8d2a6987b.main.js"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  }
 }

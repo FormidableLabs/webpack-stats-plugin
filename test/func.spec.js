@@ -41,6 +41,22 @@ const allowEmpty = (err) => {
   throw err;
 };
 
+// Normalize expected files if earlier than webpack4.
+const EXPECTED_NORMS = {
+  "build/stats-custom-stats-fields.json": ({ data }) => JSON.stringify({
+    ...JSON.parse(data),
+    // Remove fields not found in early webpack.
+    namedChunkGroups: undefined
+  }, null, 2) // eslint-disable-line no-magic-numbers
+};
+
+const normalizeExpected = ({ data, name, webpack }) => {
+  const norm = EXPECTED_NORMS[name];
+  if (!norm || webpack === "webpack4") { return data; }
+
+  return norm({ data });
+};
+
 // Normalize / smooth over webpack version differences in data files.
 const normalizeFile = ({ data, name }) => {
   // First, do string-based normalizations and short-circuit if not JSON.
@@ -131,8 +147,9 @@ describe("builds", () => {
           return void this.skip(); // eslint-disable-line no-invalid-this
         }
 
-        Object.keys(expecteds).forEach((fileKey) => {
-          expect(actual[fileKey], fileKey).to.equal(expecteds[fileKey]);
+        Object.keys(expecteds).forEach((name) => {
+          const data = expecteds[name];
+          expect(actual[name], name).to.equal(normalizeExpected({ data, name, webpack }));
         });
       });
     });
