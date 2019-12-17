@@ -11,6 +11,7 @@ const STAT_RESET = Object.freeze({
   all: false,
   // explicitly turn off older fields
   // (webpack <= v2.7.0 does not support "all")
+  // See: https://webpack.js.org/configuration/stats/
   performance: false,
   hash: false,
   version: false,
@@ -22,7 +23,9 @@ const STAT_RESET = Object.freeze({
   cachedAssets: false,
   children: false,
   moduleTrace: false,
-  assets: false
+  assets: false,
+  modules: false,
+  publicPath: false
 });
 
 module.exports = {
@@ -99,7 +102,7 @@ module.exports = {
     }),
     new StatsWriterPlugin({
       filename: "stats-custom-stats-fields.json",
-      fields: ["errors", "warnings", "assets", "publicPath"]
+      fields: ["errors", "warnings", "assets"] // TODO: , "publicPath"
     }),
     new StatsWriterPlugin({
       filename: "stats-override-tostring-opt.json",

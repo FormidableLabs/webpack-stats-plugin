@@ -6,6 +6,7 @@
 const base = require("./webpack.config");
 const fail = require("../webpack4/webpack.config.fail-promise");
 
-module.exports = Object.assign({}, base, {
+module.exports = {
+  ...base,
   plugins: fail.plugins
-});
+};
