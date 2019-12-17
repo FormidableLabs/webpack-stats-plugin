@@ -31,7 +31,7 @@ module.exports = {
   entry: "../src/main.js",
   output: {
     path: path.join(__dirname, "build"),
-    filename: "[hash].main.js"
+    filename: "[hash].[name].js"
   },
   devtool: false,
   plugins: [
