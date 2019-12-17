@@ -104,7 +104,7 @@ module.exports = {
     // https://github.com/FormidableLabs/webpack-stats-plugin/issues/44
     new StatsWriterPlugin({
       filename: "stats-custom-stats-fields.json",
-      fields: ["errors", "warnings", "assets", "publicPath", "namedChunkGroups"]
+      fields: ["errors", "warnings", "assets", "hash", "publicPath", "namedChunkGroups"]
     }),
     new StatsWriterPlugin({
       filename: "stats-override-tostring-opt.json",
