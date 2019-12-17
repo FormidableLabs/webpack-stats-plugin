@@ -31,6 +31,7 @@ module.exports = {
   entry: "../src/main.js",
   output: {
     path: path.join(__dirname, "build"),
+    publicPath: "/website-o-doom/",
     filename: "[hash].main.js"
   },
   devtool: false,
@@ -98,10 +99,7 @@ module.exports = {
     }),
     new StatsWriterPlugin({
       filename: "stats-custom-stats-fields.json",
-      fields: ["errors", "warnings", "assets"],
-      stats: Object.assign({}, STAT_RESET, {
-        assets: true
-      })
+      fields: ["errors", "warnings", "assets", "publicPath"]
     }),
     new StatsWriterPlugin({
       filename: "stats-override-tostring-opt.json",
