@@ -1,7 +1,7 @@
 History
 =======
 
-## UNRELEASED
+## 0.3.1
 
 * *Bug*: Fix options issue with `stats` default fields included in output.
   [#44](https://github.com/FormidableLabs/webpack-stats-plugin/issues/44)
