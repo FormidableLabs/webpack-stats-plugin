@@ -11,6 +11,7 @@ const STAT_RESET = Object.freeze({
   all: false,
   // explicitly turn off older fields
   // (webpack <= v2.7.0 does not support "all")
+  // See: https://webpack.js.org/configuration/stats/
   performance: false,
   hash: false,
   version: false,
@@ -22,7 +23,9 @@ const STAT_RESET = Object.freeze({
   cachedAssets: false,
   children: false,
   moduleTrace: false,
-  assets: false
+  assets: false,
+  modules: false,
+  publicPath: false
 });
 
 module.exports = {
@@ -31,6 +34,7 @@ module.exports = {
   entry: "../src/main.js",
   output: {
     path: path.join(__dirname, "build"),
+    publicPath: "/website-o-doom/",
     filename: "[hash].main.js"
   },
   devtool: false,
@@ -96,12 +100,11 @@ module.exports = {
         return JSON.stringify(data, null, INDENT);
       }
     }),
+    // Regression test: Missing `stats` option fields that should be default enabled.
+    // https://github.com/FormidableLabs/webpack-stats-plugin/issues/44
     new StatsWriterPlugin({
       filename: "stats-custom-stats-fields.json",
-      fields: ["errors", "warnings", "assets"],
-      stats: Object.assign({}, STAT_RESET, {
-        assets: true
-      })
+      fields: ["errors", "warnings", "assets", "hash", "publicPath", "namedChunkGroups"]
     }),
     new StatsWriterPlugin({
       filename: "stats-override-tostring-opt.json",

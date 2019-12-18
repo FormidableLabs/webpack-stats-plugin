@@ -41,6 +41,41 @@ const allowEmpty = (err) => {
   throw err;
 };
 
+// Normalize expected files if earlier than webpack4.
+const EXPECTED_NORMS = {
+  "build/stats-custom-stats-fields.json": ({ data }) => JSON.stringify({
+    ...JSON.parse(data),
+    // Remove fields not found in early webpack.
+    namedChunkGroups: undefined
+  }, null, 2) // eslint-disable-line no-magic-numbers
+};
+
+const normalizeExpected = ({ data, name, webpack }) => {
+  const norm = EXPECTED_NORMS[name];
+  if (!norm || webpack === "webpack4") { return data; }
+
+  return norm({ data });
+};
+
+// Normalize / smooth over webpack version differences in data files.
+const normalizeFile = ({ data, name }) => {
+  // First, do string-based normalizations and short-circuit if not JSON.
+  const dataStr = data.replace(HASH_RE, "HASH");
+  if (!name.endsWith(".json")) { return dataStr; }
+
+  // Then, as an object if JSON file.
+  const dataObj = JSON.parse(dataStr);
+  (dataObj.assets || []).forEach((asset) => {
+    if (asset.name === "HASH.main.js") {
+      // Mutate size and naming fields.
+      asset.size = 1234;
+      asset.chunks = ["main"]; // webpack4 style.
+    }
+  });
+
+  return JSON.stringify(dataObj, null, 2); // eslint-disable-line no-magic-numbers
+};
+
 // Read files to an object.
 const readBuild = (buildDir) => {
   let files;
@@ -64,7 +99,7 @@ const readBuild = (buildDir) => {
     ))
     // Create an object of `{ FILE_PATH: STRING_VALUE }`
     .then((data) => data.reduce((m, v, i) =>
-      Object.assign(m || {}, { [files[i]]: v.toString().replace(HASH_RE, "HASH") }), null)
+      ({ ...m, [files[i]]: normalizeFile({ data: v.toString(), name: files[i] }) }), {})
     );
 };
 
@@ -112,8 +147,9 @@ describe("builds", () => {
           return void this.skip(); // eslint-disable-line no-invalid-this
         }
 
-        Object.keys(expecteds).forEach((fileKey) => {
-          expect(actual[fileKey], fileKey).to.equal(expecteds[fileKey]);
+        Object.keys(expecteds).forEach((name) => {
+          const data = expecteds[name];
+          expect(actual[name], name).to.equal(normalizeExpected({ data, name, webpack }));
         });
       });
     });

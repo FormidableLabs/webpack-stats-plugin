@@ -6,7 +6,8 @@
 const base = require("./webpack.config");
 const { StatsWriterPlugin } = require("../../index");
 
-module.exports = Object.assign({}, base, {
+module.exports = {
+  ...base,
   plugins: [
     new StatsWriterPlugin({
       filename: "stats-transform-fail-sync.json",
@@ -15,4 +16,4 @@ module.exports = Object.assign({}, base, {
       }
     })
   ]
-});
+};

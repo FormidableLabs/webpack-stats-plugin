@@ -1,5 +1,78 @@
 {
   "errors": [],
   "warnings": [],
-  "assets": []
+  "assets": [
+    {
+      "name": "6416defbb3d8d2a6987b.main.js",
+      "size": 3947,
+      "chunks": [
+        "main"
+      ],
+      "chunkNames": [
+        "main"
+      ]
+    },
+    {
+      "name": "stats.json",
+      "size": 75,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "stats-transform.json",
+      "size": 44,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "stats-transform.md",
+      "size": 62,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "stats-transform-custom-obj.json",
+      "size": 44,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "stats-custom.json",
+      "size": 75,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "../build2/stats-custom2.json",
+      "size": 75,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "stats-transform-promise.json",
+      "size": 44,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
+      "name": "stats-custom-stats.json",
+      "size": 125,
+      "chunks": [],
+      "chunkNames": []
+    }
+  ],
+  "hash": "6416defbb3d8d2a6987b",
+  "publicPath": "/website-o-doom/",
+  "namedChunkGroups": {
+    "main": {
+      "chunks": [
+        "main"
+      ],
+      "assets": [
+        "6416defbb3d8d2a6987b.main.js"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  }
 }
