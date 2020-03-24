@@ -1,6 +1,6 @@
 {
   "name": "@regru/webpack-stats-plugin",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Webpack stats plugin",
   "main": "index.js",
   "repository": {
