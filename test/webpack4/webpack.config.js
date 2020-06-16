@@ -74,6 +74,10 @@ module.exports = {
     new StatsWriterPlugin({
       filename: "../build2/stats-custom2.json"
     }),
+    // Dynamic filename.
+    new StatsWriterPlugin({
+      filename: () => "stats-dynamic.json"
+    }),
     // Promise transform
     new StatsWriterPlugin({
       filename: "stats-transform-promise.json",
