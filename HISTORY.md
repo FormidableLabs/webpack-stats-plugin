@@ -6,6 +6,7 @@ History
 * *Feature*: Allow `opts.filename` to take `Function` argument.
   [#47](https://github.com/FormidableLabs/webpack-stats-plugin/issues/47)
   [#48](https://github.com/FormidableLabs/webpack-stats-plugin/pull/48)
+  (*[@dominics][]*)
 
 ## 0.3.1
 
@@ -77,6 +78,7 @@ History
 
 [@evocateur]: https://github.com/evocateur
 [@evilebottnawi]: https://github.com/evilebottnawi
+[@dominics]: https://github.com/dominics
 [@lostrouter]: https://github.com/lostrouter
 [@ryan-roemer]: https://github.com/ryan-roemer
 [@seanchas116]: https://github.com/seanchas116
