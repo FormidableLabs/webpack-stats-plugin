@@ -1,7 +1,7 @@
 History
 =======
 
-## UNRELEASED
+## 0.3.2
 
 * *Feature*: Allow `opts.filename` to take `Function` argument.
   [#47](https://github.com/FormidableLabs/webpack-stats-plugin/issues/47)
