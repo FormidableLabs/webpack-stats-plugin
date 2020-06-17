@@ -49,6 +49,12 @@
       "chunkNames": []
     },
     {
+      "name": "stats-dynamic.json",
+      "size": 75,
+      "chunks": [],
+      "chunkNames": []
+    },
+    {
       "name": "stats-transform-promise.json",
       "size": 44,
       "chunks": [],
