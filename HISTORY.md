@@ -1,6 +1,12 @@
 History
 =======
 
+## UNRELEASED
+
+* *Feature*: Allow `opts.filename` to take `Function` argument.
+  [#47](https://github.com/FormidableLabs/webpack-stats-plugin/issues/47)
+  [#48](https://github.com/FormidableLabs/webpack-stats-plugin/pull/48)
+
 ## 0.3.1
 
 * *Bug*: Fix options issue with `stats` default fields included in output.
