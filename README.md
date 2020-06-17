@@ -135,7 +135,7 @@ module.exports = {
 
 ### `StatsWriterPlugin(opts)`
 * **opts** (`Object`) options
-* **opts.filename** (`String`) output file name (Default: `"stats.json"`)
+* **opts.filename** (`String|Function`) output file name (Default: `"stats.json"`)
 * **opts.fields** (`Array`) fields of stats obj to keep (Default: `["assetsByChunkName"]`)
 * **opts.stats** (`Object|String`) stats config object or string preset (Default: `{}`)
 * **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
@@ -168,7 +168,7 @@ See:
 - https://webpack.js.org/api/node/#stats-object
 
 **`filename`**: The `opts.filename` option can be a file name or path relative to
-`output.path` in webpack configuration. It should not be absolute.
+`output.path` in webpack configuration. It may also be a function, in which case it will be passed the current compiler instance and expected to return a filename to use.
 
 **`transform`**: By default, the retrieved stats object is `JSON.stringify`'ed
 but by supplying an alternate transform you can target _any_ output format.
