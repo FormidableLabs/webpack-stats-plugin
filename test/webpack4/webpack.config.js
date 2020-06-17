@@ -45,26 +45,24 @@ module.exports = {
     new StatsWriterPlugin({
       filename: "stats-transform.json",
       fields: null,
-      transform(data) {
-        return JSON.stringify(data.assetsByChunkName, null, INDENT);
+      transform({ assetsByChunkName }) {
+        return JSON.stringify(assetsByChunkName, null, INDENT);
       }
     }),
     new StatsWriterPlugin({
       filename: "stats-transform.md",
       fields: null,
-      transform(data) {
-        const assetsByChunkName = data.assetsByChunkName;
-        return Object.keys(assetsByChunkName).reduce((memo, key) => {
-          return `${memo}${key} | ${assetsByChunkName[key]}\n`;
-        }, "Name | Asset\n:--- | :----\n");
+      transform({ assetsByChunkName }) {
+        return Object.entries(assetsByChunkName).reduce(
+          (memo, [key, val]) => `${memo}${key} | ${val}\n`,
+          "Name | Asset\n:--- | :----\n"
+        );
       }
     }),
     new StatsWriterPlugin({
       filename: "stats-transform-custom-obj.json",
-      transform(data) {
-        return JSON.stringify({
-          main: data.assetsByChunkName.main
-        }, null, INDENT);
+      transform({ assetsByChunkName: { main } }) {
+        return JSON.stringify({ main }, null, INDENT);
       }
     }),
     new StatsWriterPlugin({
@@ -81,15 +79,12 @@ module.exports = {
     // Promise transform
     new StatsWriterPlugin({
       filename: "stats-transform-promise.json",
-      transform(data) {
+      transform({ assetsByChunkName: { main } }) {
         return Promise.resolve()
           // Force async.
-          .then(() => new Promise((res) => {
-            process.nextTick(res);
-          }))
-          .then(() => JSON.stringify({
-            main: data.assetsByChunkName.main
-          }, null, INDENT));
+          // eslint-disable-next-line promise/avoid-new
+          .then(() => new Promise((resolve) => { process.nextTick(resolve); }))
+          .then(() => JSON.stringify({ main }, null, INDENT));
       }
     }),
     // Custom stats
@@ -118,19 +113,17 @@ module.exports = {
       }),
       transform(data) {
         // normalize subset of chunk metadata across all versions of webpack
-        data.chunks = data.chunks.map((chunk) => {
-          return [
-            "rendered",
-            "initial",
-            "entry",
-            "size",
-            "names",
-            "parents"
-          ].reduce((obj, key) => {
-            obj[key] = chunk[key];
-            return obj;
-          }, {});
-        });
+        data.chunks = data.chunks.map((chunk) => [
+          "rendered",
+          "initial",
+          "entry",
+          "size",
+          "names",
+          "parents"
+        ].reduce((obj, key) => {
+          obj[key] = chunk[key];
+          return obj;
+        }, {}));
         return JSON.stringify(data, null, INDENT);
       }
     })

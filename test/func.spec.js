@@ -1,6 +1,7 @@
 "use strict";
-/*eslint-env mocha*/
-/*eslint-disable max-nested-callbacks*/
+
+/* eslint-env mocha*/
+/* eslint-disable max-nested-callbacks*/
 
 /**
  * Functional tests.
@@ -26,8 +27,8 @@ const BUILD_DIRS = ["build", "build2"];
 const WEBPACKS = [1, 2, 3, 4].map((n) => `webpack${n}`); // eslint-disable-line no-magic-numbers
 
 // Detect if node4 + webpack4 so we can skip.
-const isSkipped = (webpack) => webpack === "webpack4" &&
-  process.version.match(/(v|)([0-9]+)/)[2] === "4"; // eslint-disable-line no-magic-numbers
+const isSkipped = (webpack) => webpack === "webpack4"
+  && process.version.match(/(v|)([0-9]+)/)[2] === "4"; // eslint-disable-line no-magic-numbers
 
 // Specific hash regex to abstract.
 const HASH_RE = /[0-9a-f]{20}/gm;
@@ -65,22 +66,31 @@ const normalizeFile = ({ data, name }) => {
 
   // Then, as an object if JSON file.
   const dataObj = JSON.parse(dataStr);
-  (dataObj.assets || []).forEach((asset) => {
-    if (asset.name === "HASH.main.js") {
+  if (dataObj.assets) {
+    // Sort for determinism
+    dataObj.assets = dataObj.assets.sort((a, b) => a.name.localeCompare(b.name));
+
+    // Normalize ephemeral build stuff.
+    dataObj.assets.forEach((asset) => {
       // Mutate size and naming fields.
-      asset.size = 1234;
-      asset.chunks = ["main"]; // webpack4 style.
-    }
-  });
+      if (asset.name === "HASH.main.js") {
+        asset.size = 1234;
+        asset.chunks = ["main"]; // webpack4 style.
+      }
+
+      // Remove webpack4 fields
+      delete asset.info;
+      delete asset.emitted;
+    });
+  }
+
 
   return JSON.stringify(dataObj, null, 2); // eslint-disable-line no-magic-numbers
 };
 
 // Read files to an object.
-const readBuild = (buildDir) => {
-  let files;
-
-  return Promise.all(BUILD_DIRS.map(
+const readBuild = async (buildDir) => {
+  const files = await Promise.all(BUILD_DIRS.map(
     (dir) => fs.readdir(path.join(__dirname, buildDir, dir)).catch(allowEmpty)
   ))
     // Create a flat list of files in an array.
@@ -90,26 +100,29 @@ const readBuild = (buildDir) => {
       // Flatten.
       .reduce((memo, list) => memo.concat(list), [])
       // Remove "main.js"
-      .filter((file) => !/\.main\.js$/.test(file))
-    )
-    // Read all objects to a string.
-    .then((flatFiles) => { files = flatFiles; })
-    .then(() => Promise.all(
-      files.map((file) => fs.readFile(path.join(__dirname, buildDir, file)))
-    ))
-    // Create an object of `{ FILE_PATH: STRING_VALUE }`
-    .then((data) => data.reduce((m, v, i) =>
-      ({ ...m, [files[i]]: normalizeFile({ data: v.toString(), name: files[i] }) }), {})
+      .filter((file) => !(/\.main\.js$/).test(file))
     );
+
+  // Read all objects to a string.
+  const data = await Promise.all(
+    files.map((file) => fs.readFile(path.join(__dirname, buildDir, file)))
+  );
+
+  return data.reduce((m, v, i) => ({
+    ...m,
+    [files[i]]: normalizeFile({ data: v.toString(),
+      name: files[i] }) }),
+  {});
 };
 
 // Promise-friendly spawn.
-const spawn = function () {
+const spawn = (...args) => {
   const stdout = [];
   const stderr = [];
 
+  // eslint-disable-next-line promise/avoid-new
   return new Promise((resolve) => {
-    const proc = cp.spawn.apply(cp, arguments); // eslint-disable-line prefer-spread
+    const proc = cp.spawn(...args);
     proc.stdout.on("data", (data) => {
       stdout.push(data.toString());
     });
@@ -130,11 +143,15 @@ describe("builds", () => {
   const actuals = {};
 
   // Read in expected fixtures.
-  before(() => readBuild("expected").then((data) => { expecteds = data; }));
+  before(async () => {
+    expecteds = await readBuild("expected");
+  });
 
   // Dynamically create suites and tests.
   WEBPACKS.forEach((webpack) => {
-    before(() => readBuild(webpack).then((data) => { actuals[webpack] = data; }));
+    before(async () => {
+      actuals[webpack] = await readBuild(webpack);
+    });
 
     describe(webpack, () => {
       it("matches expected files", function () {
@@ -149,7 +166,9 @@ describe("builds", () => {
 
         Object.keys(expecteds).forEach((name) => {
           const data = expecteds[name];
-          expect(actual[name], name).to.equal(normalizeExpected({ data, name, webpack }));
+          expect(actual[name], name).to.equal(normalizeExpected({ data,
+            name,
+            webpack }));
         });
       });
     });
@@ -164,46 +183,42 @@ describe("failures", () => {
   );
   const NUM_ERRS = VERSIONS.length;
 
-  it("fails with synchronous error", () => {
+  it("fails with synchronous error", async () => {
     // Use builder to concurrently run:
     // `webpack<VERS> --config test/webpack<VERS>/webpack.config.fail-sync.js`
-    return spawn(builderCli,
+    const obj = await spawn(builderCli,
       [
         "envs", "test:build:single",
         JSON.stringify(VERSIONS),
         "--env", JSON.stringify({ WP_EXTRA: ".fail-sync" }),
         "--buffer", "--bail=false"
       ]
-    )
-      .then((obj) => {
-        expect(obj.code).to.equal(1);
-        expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
+    );
 
-        const exps = Array(NUM_ERRS).fill("Error: SYNC");
-        const errs = obj.stderr.match(/(Error\: SYNC)/gm);
-        expect(errs).to.eql(exps);
-      });
+    expect(obj.code).to.equal(1);
+    expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
+
+    const exps = Array(NUM_ERRS).fill("Error: SYNC");
+    const errs = obj.stderr.match(/(Error\: SYNC)/gm);
+    expect(errs).to.eql(exps);
   });
 
-  it("fails with promise rejection", () => {
+  it("fails with promise rejection", async () => {
     // Use builder to concurrently run:
     // `webpack<VERS> --config test/webpack<VERS>/webpack.config.fail-promise.js`
-    return spawn(builderCli,
+    const obj = await spawn(builderCli,
       [
         "envs", "test:build:single",
         JSON.stringify(VERSIONS),
         "--env", JSON.stringify({ WP_EXTRA: ".fail-promise" }),
         "--buffer", "--bail=false"
       ]
-    )
-      .then((obj) => {
-        expect(obj.code).to.equal(1);
-        expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
+    );
+    expect(obj.code).to.equal(1);
+    expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
 
-        const exps = Array(NUM_ERRS).fill("Error: PROMISE");
-        const errs = obj.stderr.match(/(Error\: PROMISE)/gm);
-        expect(errs).to.eql(exps);
-      });
+    const exps = Array(NUM_ERRS).fill("Error: PROMISE");
+    const errs = obj.stderr.match(/(Error\: PROMISE)/gm);
+    expect(errs).to.eql(exps);
   });
-
 });
