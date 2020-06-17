@@ -218,5 +218,5 @@ $ yarn run check
 [trav_img]: https://api.travis-ci.com/FormidableLabs/webpack-stats-plugin.svg
 [trav_site]: https://travis-ci.com/FormidableLabs/webpack-stats-plugin
 [lic_img]: https://img.shields.io/npm/l/webpack-stats-plugin.svg?color=brightgreen&style=flat
-[lic_site]: https://github.com/FormidableLabs/webpack-stats-plugin/blob/master/LICENSE.txt
+[lic_site]: https://github.com/FormidableLabs/webpack-stats-plugin/blob/main/LICENSE.txt
 [maintenance_image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat
