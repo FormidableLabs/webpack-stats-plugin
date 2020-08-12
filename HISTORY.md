@@ -1,6 +1,12 @@
 History
 =======
 
+## UNRELEASED
+
+* *Feature*: Support `webpack@5`.
+* *Package*: Remove `package.json:engines` and test tweaks for `node4`.
+* *Test*: Refactor and separate webpack versions from configs.
+
 ## 0.3.2
 
 * *Feature*: Allow `opts.filename` to take `Function` argument.

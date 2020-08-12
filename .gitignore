@@ -10,5 +10,5 @@ yarn-error.log*
 
 # Build
 coverage
-test/*/build*
+test/scenarios/*/build*
 !test/expected/build*

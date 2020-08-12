@@ -24,14 +24,14 @@ const cp = require("child_process");
 const builderCli = require.resolve("builder/bin/builder");
 
 const BUILD_DIRS = ["build", "build2"];
-const WEBPACKS = [1, 2, 3, 4].map((n) => `webpack${n}`); // eslint-disable-line no-magic-numbers
-
-// Detect if node4 + webpack4 so we can skip.
-const isSkipped = (webpack) => webpack === "webpack4"
-  && process.version.match(/(v|)([0-9]+)/)[2] === "4"; // eslint-disable-line no-magic-numbers
+const WEBPACKS = [1, 2, 3, 4, 5].map((n) => `webpack${n}`); // eslint-disable-line no-magic-numbers
+const VERSIONS = [{ VERS: 1 }, { VERS: 2 }, { VERS: 3 }, { VERS: 4 }, { VERS: 5 }];
+const NUM_ERRS = VERSIONS.length;
 
 // Specific hash regex to abstract.
 const HASH_RE = /[0-9a-f]{20}/gm;
+
+const webpackVers = (webpack) => parseInt(webpack.replace("webpack", ""), 10);
 
 // Permissively allow empty files.
 const allowEmpty = (err) => {
@@ -52,10 +52,14 @@ const EXPECTED_NORMS = {
 };
 
 const normalizeExpected = ({ data, name, webpack }) => {
+  // Normalize expecteds and previous to webpack4
   const norm = EXPECTED_NORMS[name];
-  if (!norm || webpack === "webpack4") { return data; }
+  if (norm && webpackVers(webpack) < 4) { // eslint-disable-line no-magic-numbers
+    return norm({ data });
+  }
 
-  return norm({ data });
+  // Modern (webpack4) data.
+  return data;
 };
 
 // Normalize / smooth over webpack version differences in data files.
@@ -75,10 +79,10 @@ const normalizeFile = ({ data, name }) => {
       // Mutate size and naming fields.
       if (asset.name === "HASH.main.js") {
         asset.size = 1234;
-        asset.chunks = ["main"]; // webpack4 style.
+        asset.chunks = ["main"]; // webpack4+ style.
       }
 
-      // Remove webpack4 fields
+      // Remove webpack4+ fields
       delete asset.info;
       delete asset.emitted;
     });
@@ -150,19 +154,12 @@ describe("builds", () => {
   // Dynamically create suites and tests.
   WEBPACKS.forEach((webpack) => {
     before(async () => {
-      actuals[webpack] = await readBuild(webpack);
+      actuals[webpack] = await readBuild(path.join("scenarios", webpack));
     });
 
     describe(webpack, () => {
-      it("matches expected files", function () {
+      it("matches expected files", () => {
         const actual = actuals[webpack];
-
-        // Allow webpack4 to have no files if all other webpacks have the right
-        // number of files to account for node4 not being supported.
-        if (isSkipped(webpack)) {
-          // Dynamically skip.
-          return void this.skip(); // eslint-disable-line no-invalid-this
-        }
 
         Object.keys(expecteds).forEach((name) => {
           const data = expecteds[name];
@@ -176,16 +173,9 @@ describe("builds", () => {
 });
 
 describe("failures", () => {
-  // Dynamically figure out if doing webpack4.
-  const VERSIONS = [].concat(
-    [{ VERS: 1 }, { VERS: 2 }, { VERS: 3 }],
-    isSkipped("webpack4") ? [] : [{ VERS: 4 }]
-  );
-  const NUM_ERRS = VERSIONS.length;
-
   it("fails with synchronous error", async () => {
     // Use builder to concurrently run:
-    // `webpack<VERS> --config test/webpack<VERS>/webpack.config.fail-sync.js`
+    // `webpack<VERS> --config test/scenarios/webpack<VERS>/webpack.config.fail-sync.js`
     const obj = await spawn(builderCli,
       [
         "envs", "test:build:single",
@@ -205,7 +195,7 @@ describe("failures", () => {
 
   it("fails with promise rejection", async () => {
     // Use builder to concurrently run:
-    // `webpack<VERS> --config test/webpack<VERS>/webpack.config.fail-promise.js`
+    // `webpack<VERS> --config test/scenarios/webpack<VERS>/webpack.config.fail-promise.js`
     const obj = await spawn(builderCli,
       [
         "envs", "test:build:single",

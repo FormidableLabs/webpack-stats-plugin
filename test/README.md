@@ -5,27 +5,33 @@ We test the `webpack-stats-plugin` in all webpack browser version.
 
 ## Setup
 
-To allow a multiple install scenario, we have multiple pseudo-packages as
-follows:
+To allow a multiple install scenario, we have multiple pseudo-packages and
+configuration directories as follows:
 
 ```
-test/
+test/{packages,scenarios}
+├── webpack       # Fake package to prevent node_modules flattening
+├── webpack-cli   # Fake package to prevent node_modules flattening
 ├── webpack1
 ├── webpack2
 ├── webpack3
-└── webpack4
+├── webpack4
+└── webpack5
 ```
 
 where each `webpack<VERSION>` directory has a structure of:
 
 ```
-test/webpack1
+test/packages/webpack1
 ├── index.js
-├── package.json
+└── package.json
+
+test/scenarios/webpack1
 └── webpack.config.js
 ```
 
-and an independent `package.json` that has the desired webpack version, e.g.:
+where an independent `package.json` that has the desired `webpack`
+(and `webpack-cli` for modern webpacks) version, e.g.:
 
 ```js
   "dependencies": {
@@ -39,10 +45,11 @@ each of these different versions like:
 
 ```js
   "devDependencies": {
-    "webpack1": "file:test/webpack1",
-    "webpack2": "file:test/webpack2",
-    "webpack3": "file:test/webpack3",
-    "webpack4": "file:test/webpack4"
+    "webpack1": "file:test/packages/webpack1",
+    "webpack2": "file:test/packages/webpack2",
+    "webpack3": "file:test/packages/webpack3",
+    "webpack4": "file:test/packages/webpack4",
+    "webpack4": "file:test/packages/webpack5"
   }
 ```
 
@@ -57,16 +64,15 @@ that omitted from this guide.
 We then build files outside of git source to, e.g.:
 
 ```js
-test/webpack1
+test/scenarios/webpack1
 ├── build
 └── build2
 ```
 
-We do this with the command:
+We do this with a command that looks something like:
 
-```js
-"test:build:single":
-  "cd node_modules/webpack${VERS} && node index.js --config ../../test/webpack${VERS}/webpack.config.js",
+```sh
+$ node node_modules/webpack5/index.js --config test/scenarios/webpack5/webpack.config.js
 ```
 
 which importantly **must** change directory to our re-export file so that the

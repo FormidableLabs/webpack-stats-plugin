@@ -21,7 +21,7 @@ $ yarn add --dev webpack-stats-plugin
 
 ## Examples
 
-We have example webpack configurations for all versions of webpack. See., e.g. [`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js).
+We have example webpack configurations for all versions of webpack. See., e.g. [`test/scenarios/webpack5/webpack.config.js`](test/scenarios/webpack5/webpack.config.js).
 
 ### CLI
 
@@ -159,7 +159,7 @@ See:
 
 **`filename`**: The `opts.filename` option can be a file name or path relative to `output.path` in webpack configuration. It should not be absolute. It may also be a function, in which case it will be passed the current compiler instance and expected to return a filename to use.
 
-**`transform`**: By default, the retrieved stats object is `JSON.stringify`'ed but by supplying an alternate transform you can target _any_ output format. See [`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js) for various examples including Markdown output.
+**`transform`**: By default, the retrieved stats object is `JSON.stringify`'ed but by supplying an alternate transform you can target _any_ output format. See [`test/scenarios/webpack5/webpack.config.js`](test/scenarios/webpack5/webpack.config.js) for various examples including Markdown output.
 
 - **Warning**: The output of `transform` should be a `String`, not an object. On Node `v4.x` if you return a real object in `transform`, then webpack will break with a `TypeError` (See [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just adding a simple `JSON.stringify()` around your object is usually what you need to solve any problems.
 

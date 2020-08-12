@@ -1,10 +1,11 @@
 "use strict";
 
+// TODO(WP5): Combine WP4 into this one.
 /**
  * Webpack configuration
  */
 const path = require("path");
-const { StatsWriterPlugin } = require("../../index");
+const { StatsWriterPlugin } = require("../../../index");
 const INDENT = 2;
 const STAT_RESET = Object.freeze({
   // fallback for new stuff added after v3
@@ -31,7 +32,7 @@ const STAT_RESET = Object.freeze({
 module.exports = {
   mode: "development",
   context: __dirname,
-  entry: "../src/main.js",
+  entry: "../../src/main.js",
   output: {
     path: path.join(__dirname, "build"),
     publicPath: "/website-o-doom/",
