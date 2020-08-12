@@ -75,7 +75,12 @@ const normalizeFile = ({ data, name }) => {
     dataObj.assets = dataObj.assets.sort((a, b) => a.name.localeCompare(b.name));
 
     // Normalize ephemeral build stuff.
-    dataObj.assets.forEach((asset) => {
+    dataObj.assets = dataObj.assets.map((asset) => {
+      // Sort keys.
+      asset = Object.keys(asset)
+        .sort()
+        .reduce((m, k) => Object.assign(m, { [k]: asset[k] }), {});
+
       // Mutate size and naming fields.
       if (asset.name === "HASH.main.js") {
         asset.size = 1234;
@@ -83,11 +88,22 @@ const normalizeFile = ({ data, name }) => {
       }
 
       // Remove webpack4+ fields
-      delete asset.info;
+      delete asset.auxiliaryChunkIdHints;
+      delete asset.auxiliaryChunkNames;
+      delete asset.auxiliaryChunks;
+      delete asset.chunkIdHints;
+      delete asset.comparedForEmit;
       delete asset.emitted;
+      delete asset.info;
+      delete asset.isOverSizeLimit;
+      delete asset.related;
+      delete asset.type;
+
+      return asset;
     });
   }
 
+  // TODO(WP5): Similar normalization for namedChunkGroups
 
   return JSON.stringify(dataObj, null, 2); // eslint-disable-line no-magic-numbers
 };
@@ -172,7 +188,10 @@ describe("builds", () => {
   });
 });
 
-describe("failures", () => {
+describe("failures", function () {
+  // Set higher timeout for exec'ed tests.
+  this.timeout(5000); // eslint-disable-line no-invalid-this,no-magic-numbers
+
   it("fails with synchronous error", async () => {
     // Use builder to concurrently run:
     // `webpack<VERS> --config test/scenarios/webpack<VERS>/webpack.config.fail-sync.js`
