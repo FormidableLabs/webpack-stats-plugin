@@ -19,8 +19,9 @@
 const path = require("path");
 const pify = require("pify");
 const fs = pify(require("fs"));
-const expect = require("chai").expect;
 const cp = require("child_process");
+const { expect } = require("chai");
+const { Test } = require("mocha");
 const builderCli = require.resolve("builder/bin/builder");
 
 const BUILD_DIRS = ["build", "build2"];
@@ -52,7 +53,7 @@ const EXPECTED_NORMS = {
 };
 
 const normalizeExpected = ({ data, name, webpack }) => {
-  // Normalize expecteds and previous to webpack4
+  // Normalize expecteds and previous to webpack4+
   const norm = EXPECTED_NORMS[name];
   if (norm && webpackVers(webpack) < 4) { // eslint-disable-line no-magic-numbers
     return norm({ data });
@@ -158,36 +159,6 @@ const spawn = (...args) => {
   });
 };
 
-describe("builds", () => {
-  let expecteds;
-  const actuals = {};
-
-  // Read in expected fixtures.
-  before(async () => {
-    expecteds = await readBuild("expected");
-  });
-
-  // Dynamically create suites and tests.
-  WEBPACKS.forEach((webpack) => {
-    before(async () => {
-      actuals[webpack] = await readBuild(path.join("scenarios", webpack));
-    });
-
-    describe(webpack, () => {
-      it("matches expected files", () => {
-        const actual = actuals[webpack];
-
-        Object.keys(expecteds).forEach((name) => {
-          const data = expecteds[name];
-          expect(actual[name], name).to.equal(normalizeExpected({ data,
-            name,
-            webpack }));
-        });
-      });
-    });
-  });
-});
-
 describe("failures", function () {
   // Set higher timeout for exec'ed tests.
   this.timeout(5000); // eslint-disable-line no-invalid-this,no-magic-numbers
@@ -229,5 +200,33 @@ describe("failures", function () {
     const exps = Array(NUM_ERRS).fill("Error: PROMISE");
     const errs = obj.stderr.match(/(Error\: PROMISE)/gm);
     expect(errs).to.eql(exps);
+  });
+});
+
+describe("builds", async () => {
+  const expecteds = await readBuild("expected");
+  const actuals = await Promise.all(WEBPACKS
+    .map(async (webpack) => [webpack, await readBuild(path.join("scenarios", webpack))])
+  ).then((items) => items
+    .reduce((memo, [key, val]) => Object.assign(memo, { [key]: val }), {})
+  );
+
+  // Dynamically and lazily create suites and tests.
+  WEBPACKS.forEach((webpack) => {
+    describe(webpack, function () {
+      const actual = actuals[webpack];
+
+      Object.keys(expecteds).forEach((name) => {
+        // eslint-disable-next-line no-invalid-this
+        this.addTest(new Test(`matches expected file: ${name}`, () => {
+          const data = expecteds[name];
+          expect(actual[name], name).to.equal(normalizeExpected({
+            data,
+            name,
+            webpack
+          }));
+        }));
+      });
+    });
   });
 });
