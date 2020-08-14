@@ -205,11 +205,10 @@ describe("failures", function () {
 
 describe("builds", async () => {
   const expecteds = await readBuild("expected");
-  const actuals = await Promise.all(WEBPACKS
-    .map(async (webpack) => [webpack, await readBuild(path.join("scenarios", webpack))])
-  ).then((items) => items
-    .reduce((memo, [key, val]) => Object.assign(memo, { [key]: val }), {})
-  );
+  const actuals = {};
+  await Promise.all(WEBPACKS.map(async (webpack) => {
+    actuals[webpack] = await readBuild(path.join("scenarios", webpack));
+  }));
 
   // Dynamically and lazily create suites and tests.
   WEBPACKS.forEach((webpack) => {
