@@ -28,6 +28,14 @@ const STAT_RESET = Object.freeze({
   publicPath: false
 });
 
+// webpack5 returns array even if single item
+const normAssets = ({ assetsByChunkName }) => {
+  Object.entries(assetsByChunkName).forEach(([key, val]) => {
+    assetsByChunkName[key] = Array.isArray(val) && val.length === 1 ? val[0] : val;
+  });
+  return assetsByChunkName;
+};
+
 module.exports = {
   mode: "development",
   context: __dirname,
@@ -46,14 +54,14 @@ module.exports = {
       filename: "stats-transform.json",
       fields: null,
       transform({ assetsByChunkName }) {
-        return JSON.stringify(assetsByChunkName, null, INDENT);
+        return JSON.stringify(normAssets({ assetsByChunkName }), null, INDENT);
       }
     }),
     new StatsWriterPlugin({
       filename: "stats-transform.md",
       fields: null,
       transform({ assetsByChunkName }) {
-        return Object.entries(assetsByChunkName).reduce(
+        return Object.entries(normAssets({ assetsByChunkName })).reduce(
           (memo, [key, val]) => `${memo}${key} | ${val}\n`,
           "Name | Asset\n:--- | :----\n"
         );
@@ -61,8 +69,10 @@ module.exports = {
     }),
     new StatsWriterPlugin({
       filename: "stats-transform-custom-obj.json",
-      transform({ assetsByChunkName: { main } }) {
-        return JSON.stringify({ main }, null, INDENT);
+      transform({ assetsByChunkName }) {
+        return JSON.stringify({
+          main: normAssets({ assetsByChunkName }).main
+        }, null, INDENT);
       }
     }),
     new StatsWriterPlugin({
@@ -79,12 +89,14 @@ module.exports = {
     // Promise transform
     new StatsWriterPlugin({
       filename: "stats-transform-promise.json",
-      transform({ assetsByChunkName: { main } }) {
+      transform({ assetsByChunkName }) {
         return Promise.resolve()
           // Force async.
           // eslint-disable-next-line promise/avoid-new
           .then(() => new Promise((resolve) => { process.nextTick(resolve); }))
-          .then(() => JSON.stringify({ main }, null, INDENT));
+          .then(() => JSON.stringify({
+            main: normAssets({ assetsByChunkName }).main
+          }, null, INDENT));
       }
     }),
     // Custom stats
