@@ -4,16 +4,9 @@
  * Fail promise.
  */
 const base = require("./webpack.config");
-const { StatsWriterPlugin } = require("../../../index");
+const fail = require("../webpack5/webpack.config.fail-promise");
 
 module.exports = {
   ...base,
-  plugins: [
-    new StatsWriterPlugin({
-      filename: "stats-transform-fail-promise.json",
-      transform() {
-        return Promise.reject(new Error("PROMISE"));
-      }
-    })
-  ]
+  plugins: fail.plugins
 };

@@ -4,7 +4,7 @@
  * Webpack configuration
  */
 const path = require("path");
-const base = require("../webpack4/webpack.config");
+const base = require("../webpack5/webpack.config");
 delete base.mode;
 
 module.exports = {

@@ -1,6 +1,5 @@
 "use strict";
 
-// TODO(WP5): Combine WP4 into this one.
 /**
  * Webpack configuration
  */

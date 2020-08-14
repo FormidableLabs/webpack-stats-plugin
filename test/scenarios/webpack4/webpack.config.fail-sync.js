@@ -4,16 +4,9 @@
  * Fail synchronously.
  */
 const base = require("./webpack.config");
-const { StatsWriterPlugin } = require("../../../index");
+const fail = require("../webpack5/webpack.config.fail-sync");
 
 module.exports = {
   ...base,
-  plugins: [
-    new StatsWriterPlugin({
-      filename: "stats-transform-fail-sync.json",
-      transform() {
-        throw new Error("SYNC");
-      }
-    })
-  ]
+  plugins: fail.plugins
 };
