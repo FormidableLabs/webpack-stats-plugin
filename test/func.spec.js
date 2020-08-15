@@ -21,7 +21,6 @@ const pify = require("pify");
 const fs = pify(require("fs"));
 const cp = require("child_process");
 const { expect } = require("chai");
-const { Test } = require("mocha");
 const builderCli = require.resolve("builder/bin/builder");
 
 const BUILD_DIRS = ["build", "build2"];
@@ -213,10 +212,9 @@ describe("failures", function () {
   // Dynamically and lazily create suites and tests.
   describe("builds", () => {
     WEBPACKS.forEach((webpack) => {
-      describe(webpack, function () {
+      describe(webpack, () => {
         Object.keys(expecteds).forEach((name) => {
-          // eslint-disable-next-line no-invalid-this
-          this.addTest(new Test(`matches expected file: ${name}`, () => {
+          it(`matches expected file: ${name}`, () => {
             const actual = actuals[webpack][name];
             const expected = normalizeExpected({
               data: expecteds[name],
@@ -225,7 +223,7 @@ describe("failures", function () {
             });
 
             expect(actual, name).to.equal(expected);
-          }));
+          });
         });
       });
     });
