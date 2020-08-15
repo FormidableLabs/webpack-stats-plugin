@@ -203,7 +203,7 @@ describe("failures", function () {
   });
 });
 
-describe("builds", async () => {
+(async () => {
   const expecteds = await readBuild("expected");
   const actuals = {};
   await Promise.all(WEBPACKS.map(async (webpack) => {
@@ -211,21 +211,23 @@ describe("builds", async () => {
   }));
 
   // Dynamically and lazily create suites and tests.
-  WEBPACKS.forEach((webpack) => {
-    describe(webpack, function () {
-      const actual = actuals[webpack];
+  describe("builds", () => {
+    WEBPACKS.forEach((webpack) => {
+      describe(webpack, function () {
+        const actual = actuals[webpack];
 
-      Object.keys(expecteds).forEach((name) => {
-        // eslint-disable-next-line no-invalid-this
-        this.addTest(new Test(`matches expected file: ${name}`, () => {
-          const data = expecteds[name];
-          expect(actual[name], name).to.equal(normalizeExpected({
-            data,
-            name,
-            webpack
+        Object.keys(expecteds).forEach((name) => {
+          // eslint-disable-next-line no-invalid-this
+          this.addTest(new Test(`matches expected file: ${name}`, () => {
+            const data = expecteds[name];
+            expect(actual[name], name).to.equal(normalizeExpected({
+              data,
+              name,
+              webpack
+            }));
           }));
-        }));
+        });
       });
     });
   });
-});
+})();
