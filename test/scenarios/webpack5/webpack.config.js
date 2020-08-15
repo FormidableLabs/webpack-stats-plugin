@@ -39,6 +39,10 @@ const normAssets = ({ assetsByChunkName }) => {
   return assetsByChunkName;
 };
 
+const normData = (data) => Object.keys(data)
+  .sort()
+  .reduce((m, k) => Object.assign(m, { [k]: data[k] }), {});
+
 module.exports = {
   mode: "development",
   context: __dirname,
@@ -109,6 +113,8 @@ module.exports = {
         assets: true
       }),
       transform(data) {
+        data = normData(data);
+
         // webpack >= v3 adds this field unconditionally, so remove it
         delete data.filteredAssets;
         return JSON.stringify(data, null, INDENT);
@@ -127,6 +133,8 @@ module.exports = {
         chunks: true
       }),
       transform(data) {
+        data = normData(data);
+
         // normalize subset of chunk metadata across all versions of webpack
         data.chunks = data.chunks.map((chunk) => [
           "rendered",
@@ -139,6 +147,7 @@ module.exports = {
           obj[key] = chunk[key];
           return obj;
         }, {}));
+
         return JSON.stringify(data, null, INDENT);
       }
     })

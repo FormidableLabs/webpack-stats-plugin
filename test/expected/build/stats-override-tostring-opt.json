@@ -1,6 +1,4 @@
 {
-  "errors": [],
-  "warnings": [],
   "chunks": [
     {
       "rendered": true,
@@ -12,5 +10,7 @@
       ],
       "parents": []
     }
-  ]
+  ],
+  "errors": [],
+  "warnings": []
 }
