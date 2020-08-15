@@ -214,17 +214,17 @@ describe("failures", function () {
   describe("builds", () => {
     WEBPACKS.forEach((webpack) => {
       describe(webpack, function () {
-        const actual = actuals[webpack];
-
         Object.keys(expecteds).forEach((name) => {
           // eslint-disable-next-line no-invalid-this
           this.addTest(new Test(`matches expected file: ${name}`, () => {
-            const data = expecteds[name];
-            expect(actual[name], name).to.equal(normalizeExpected({
-              data,
+            const actual = actuals[webpack][name];
+            const expected = normalizeExpected({
+              data: expecteds[name],
               name,
               webpack
-            }));
+            });
+
+            expect(actual, name).to.equal(expected);
           }));
         });
       });

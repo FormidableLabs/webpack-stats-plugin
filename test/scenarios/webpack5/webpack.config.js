@@ -7,6 +7,9 @@ const path = require("path");
 const { StatsWriterPlugin } = require("../../../index");
 const INDENT = 2;
 const STAT_RESET = Object.freeze({
+  // webpack5+ needs explicit declaration.
+  errors: true,
+  warnings: true,
   // fallback for new stuff added after v3
   all: false,
   // explicitly turn off older fields
