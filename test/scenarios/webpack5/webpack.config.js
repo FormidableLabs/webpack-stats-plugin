@@ -31,6 +31,10 @@ const STAT_RESET = Object.freeze({
   publicPath: false
 });
 
+// webpack5 has deprecated `hash`.
+const VERS = parseInt(process.env.VERS || "", 10);
+const HASH_KEY = VERS >= 5 ? "fullhash" : "hash"; // eslint-disable-line no-magic-numbers
+
 // webpack5 returns array even if single item
 const normAssets = ({ assetsByChunkName }) => {
   Object.entries(assetsByChunkName).forEach(([key, val]) => {
@@ -52,7 +56,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "build"),
     publicPath: "/website-o-doom/",
-    filename: "[hash].[name].js"
+    filename: `[${HASH_KEY}].[name].js`
   },
   devtool: false,
   plugins: [
