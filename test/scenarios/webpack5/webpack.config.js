@@ -46,11 +46,13 @@ const normData = (data) => Object.keys(data)
 module.exports = {
   mode: "development",
   context: __dirname,
-  entry: "../../src/main.js",
+  entry: {
+    main: "../../src/main.js"
+  },
   output: {
     path: path.join(__dirname, "build"),
     publicPath: "/website-o-doom/",
-    filename: "[hash].main.js"
+    filename: "[hash].[name].js"
   },
   devtool: false,
   plugins: [
