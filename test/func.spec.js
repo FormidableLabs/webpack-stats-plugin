@@ -62,6 +62,13 @@ const normalizeExpected = ({ data, name, webpack }) => {
   return data;
 };
 
+const normalizeEntryPoints = (obj) => {
+  // webpack5+ style.
+  if (obj.main === "HASH.main.js") {
+    obj.main = ["HASH.main.js"];
+  }
+};
+
 // Normalize / smooth over webpack version differences in data files.
 const normalizeFile = ({ data, name }) => {
   // First, do string-based normalizations and short-circuit if not JSON.
@@ -70,6 +77,10 @@ const normalizeFile = ({ data, name }) => {
 
   // Then, as an object if JSON file.
   const dataObj = JSON.parse(dataStr);
+
+  // Custom output of just entry points.
+  normalizeEntryPoints(dataObj);
+
   if (dataObj.assets) {
     // Sort for determinism
     dataObj.assets = dataObj.assets.sort((a, b) => a.name.localeCompare(b.name));
@@ -103,6 +114,10 @@ const normalizeFile = ({ data, name }) => {
 
       return asset;
     });
+  }
+
+  if (dataObj.assetsByChunkName) {
+    normalizeEntryPoints(dataObj.assetsByChunkName);
   }
 
   if (dataObj.namedChunkGroups) {
