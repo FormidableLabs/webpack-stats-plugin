@@ -147,8 +147,7 @@ module.exports = {
           "initial",
           "entry",
           "size",
-          "names",
-          "parents"
+          "names"
         ].reduce((obj, key) => {
           obj[key] = chunk[key];
           return obj;
