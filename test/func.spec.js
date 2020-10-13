@@ -75,6 +75,7 @@ const normalizeFile = ({ data, name }) => {
     dataObj.assets = dataObj.assets.sort((a, b) => a.name.localeCompare(b.name));
 
     // Normalize ephemeral build stuff.
+    // eslint-disable-next-line max-statements
     dataObj.assets = dataObj.assets.map((asset) => {
       // Sort keys.
       asset = Object.keys(asset)
@@ -91,6 +92,7 @@ const normalizeFile = ({ data, name }) => {
       delete asset.auxiliaryChunkIdHints;
       delete asset.auxiliaryChunkNames;
       delete asset.auxiliaryChunks;
+      delete asset.cached;
       delete asset.chunkIdHints;
       delete asset.comparedForEmit;
       delete asset.emitted;
@@ -103,7 +105,17 @@ const normalizeFile = ({ data, name }) => {
     });
   }
 
-  // TODO(WP5): Similar normalization for namedChunkGroups
+  if (dataObj.namedChunkGroups) {
+    Object.values(dataObj.namedChunkGroups).forEach((val) => {
+      // Remove webpack5+ fields
+      delete val.filteredAssets;
+      delete val.assetsSize;
+      delete val.auxiliaryAssets;
+      delete val.filteredAuxiliaryAssets;
+      delete val.auxiliaryAssetsSize;
+      delete val.isOverSizeLimit;
+    });
+  }
 
   return JSON.stringify(dataObj, null, 2); // eslint-disable-line no-magic-numbers
 };
