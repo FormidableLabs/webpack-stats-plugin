@@ -123,6 +123,12 @@ module.exports = {
 
         // webpack >= v3 adds this field unconditionally, so remove it
         delete data.filteredAssets;
+
+        // webpack >= 5 normalization (remove new extra entries without name).
+        if (data.assets) {
+          data.assets = data.assets.filter(({ name }) => name);
+        }
+
         return JSON.stringify(data, null, INDENT);
       }
     }),
