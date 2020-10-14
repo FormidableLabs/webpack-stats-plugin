@@ -4,9 +4,12 @@
  * Webpack configuration
  */
 const path = require("path");
-const { StatsWriterPlugin } = require("../../index");
+const { StatsWriterPlugin } = require("../../../index");
 const INDENT = 2;
 const STAT_RESET = Object.freeze({
+  // webpack5+ needs explicit declaration.
+  errors: true,
+  warnings: true,
   // fallback for new stuff added after v3
   all: false,
   // explicitly turn off older fields
@@ -28,14 +31,32 @@ const STAT_RESET = Object.freeze({
   publicPath: false
 });
 
+// webpack5 has deprecated `hash`.
+const VERS = parseInt(process.env.VERS || "", 10);
+const HASH_KEY = VERS >= 5 ? "fullhash" : "hash"; // eslint-disable-line no-magic-numbers
+
+// webpack5 returns array even if single item
+const normAssets = ({ assetsByChunkName }) => {
+  Object.entries(assetsByChunkName).forEach(([key, val]) => {
+    assetsByChunkName[key] = Array.isArray(val) && val.length === 1 ? val[0] : val;
+  });
+  return assetsByChunkName;
+};
+
+const normData = (data) => Object.keys(data)
+  .sort()
+  .reduce((m, k) => Object.assign(m, { [k]: data[k] }), {});
+
 module.exports = {
   mode: "development",
   context: __dirname,
-  entry: "../src/main.js",
+  entry: {
+    main: "../../src/main.js"
+  },
   output: {
     path: path.join(__dirname, "build"),
     publicPath: "/website-o-doom/",
-    filename: "[hash].main.js"
+    filename: `[${HASH_KEY}].[name].js`
   },
   devtool: false,
   plugins: [
@@ -46,14 +67,14 @@ module.exports = {
       filename: "stats-transform.json",
       fields: null,
       transform({ assetsByChunkName }) {
-        return JSON.stringify(assetsByChunkName, null, INDENT);
+        return JSON.stringify(normAssets({ assetsByChunkName }), null, INDENT);
       }
     }),
     new StatsWriterPlugin({
       filename: "stats-transform.md",
       fields: null,
       transform({ assetsByChunkName }) {
-        return Object.entries(assetsByChunkName).reduce(
+        return Object.entries(normAssets({ assetsByChunkName })).reduce(
           (memo, [key, val]) => `${memo}${key} | ${val}\n`,
           "Name | Asset\n:--- | :----\n"
         );
@@ -61,8 +82,10 @@ module.exports = {
     }),
     new StatsWriterPlugin({
       filename: "stats-transform-custom-obj.json",
-      transform({ assetsByChunkName: { main } }) {
-        return JSON.stringify({ main }, null, INDENT);
+      transform({ assetsByChunkName }) {
+        return JSON.stringify({
+          main: normAssets({ assetsByChunkName }).main
+        }, null, INDENT);
       }
     }),
     new StatsWriterPlugin({
@@ -79,12 +102,14 @@ module.exports = {
     // Promise transform
     new StatsWriterPlugin({
       filename: "stats-transform-promise.json",
-      transform({ assetsByChunkName: { main } }) {
+      transform({ assetsByChunkName }) {
         return Promise.resolve()
           // Force async.
           // eslint-disable-next-line promise/avoid-new
           .then(() => new Promise((resolve) => { process.nextTick(resolve); }))
-          .then(() => JSON.stringify({ main }, null, INDENT));
+          .then(() => JSON.stringify({
+            main: normAssets({ assetsByChunkName }).main
+          }, null, INDENT));
       }
     }),
     // Custom stats
@@ -94,8 +119,16 @@ module.exports = {
         assets: true
       }),
       transform(data) {
+        data = normData(data);
+
         // webpack >= v3 adds this field unconditionally, so remove it
         delete data.filteredAssets;
+
+        // webpack >= 5 normalization (remove new extra entries without name).
+        if (data.assets) {
+          data.assets = data.assets.filter(({ name }) => name);
+        }
+
         return JSON.stringify(data, null, INDENT);
       }
     }),
@@ -112,18 +145,20 @@ module.exports = {
         chunks: true
       }),
       transform(data) {
+        data = normData(data);
+
         // normalize subset of chunk metadata across all versions of webpack
         data.chunks = data.chunks.map((chunk) => [
           "rendered",
           "initial",
           "entry",
           "size",
-          "names",
-          "parents"
+          "names"
         ].reduce((obj, key) => {
           obj[key] = chunk[key];
           return obj;
         }, {}));
+
         return JSON.stringify(data, null, INDENT);
       }
     })

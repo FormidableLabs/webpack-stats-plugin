@@ -1,3 +1,5 @@
 {
-  "main": "HASH.main.js"
+  "main": [
+    "HASH.main.js"
+  ]
 }

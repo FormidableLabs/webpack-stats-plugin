@@ -3,7 +3,7 @@
   "warnings": [],
   "assets": [
     {
-      "name": "6416defbb3d8d2a6987b.main.js",
+      "name": "HASH.main.js",
       "size": 3947,
       "chunks": [
         "main"
@@ -67,7 +67,7 @@
       "chunkNames": []
     }
   ],
-  "hash": "6416defbb3d8d2a6987b",
+  "hash": "HASH",
   "publicPath": "/website-o-doom/",
   "namedChunkGroups": {
     "main": {
@@ -75,7 +75,7 @@
         "main"
       ],
       "assets": [
-        "6416defbb3d8d2a6987b.main.js"
+        "HASH.main.js"
       ],
       "children": {},
       "childAssets": {}
