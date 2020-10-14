@@ -97,6 +97,9 @@ const normalizeFile = ({ data, name }) => {
       if (asset.name === "HASH.main.js") {
         asset.size = 1234;
         asset.chunks = ["main"]; // webpack4+ style.
+      } else if ((/stats(-.*|)\.json/).test(path.basename(asset.name))) {
+        // Stats objects themselves are different sizes in webpack5+ bc of array.
+        asset.size = 1234;
       }
 
       // Remove webpack4+ fields
@@ -122,7 +125,17 @@ const normalizeFile = ({ data, name }) => {
 
   if (dataObj.namedChunkGroups) {
     Object.values(dataObj.namedChunkGroups).forEach((val) => {
+      // webpack5+ normalization
+      if (val.assets) {
+        val.assets.forEach((assetName, i) => {
+          if (typeof assetName === "string") {
+            val.assets[i] = { name: assetName };
+          }
+        });
+      }
+
       // Remove webpack5+ fields
+      delete val.name;
       delete val.filteredAssets;
       delete val.assetsSize;
       delete val.auxiliaryAssets;
