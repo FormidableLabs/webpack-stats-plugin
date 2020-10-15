@@ -1,7 +1,7 @@
 History
 =======
 
-## UNRELEASED
+## 1.0.0
 
 * *Feature*: Support `webpack@5`.
 * *Package*: Remove `package.json:engines` and test tweaks for `node4`.
