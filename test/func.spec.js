@@ -218,7 +218,7 @@ describe("failures", function () {
     expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
 
     const exps = Array(NUM_ERRS).fill("Error: SYNC");
-    const errs = obj.stderr.match(/(Error\: SYNC)/gm);
+    const errs = obj.stderr.match(/(^Error\: SYNC)/gm);
     expect(errs).to.eql(exps);
   });
 
@@ -237,7 +237,7 @@ describe("failures", function () {
     expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
 
     const exps = Array(NUM_ERRS).fill("Error: PROMISE");
-    const errs = obj.stderr.match(/(Error\: PROMISE)/gm);
+    const errs = obj.stderr.match(/(^Error\: PROMISE)/gm);
     expect(errs).to.eql(exps);
   });
 });
