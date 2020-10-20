@@ -168,10 +168,11 @@ const readBuild = async (buildDir) => {
     files.map((file) => fs.readFile(path.join(__dirname, buildDir, file)))
   );
 
-  return data.reduce((m, v, i) => ({
-    ...m,
-    [files[i]]: normalizeFile({ data: v.toString(),
-      name: files[i] }) }),
+  return data.reduce((m, v, i) => Object.assign(
+    m,
+    { [files[i]]: normalizeFile({ data: v.toString(),
+      name: files[i] }) }
+  ),
   {});
 };
 
@@ -239,6 +240,41 @@ describe("failures", function () {
     const exps = Array(NUM_ERRS).fill("Error: PROMISE");
     const errs = obj.stderr.match(/(^Error\: PROMISE)/gm);
     expect(errs).to.eql(exps);
+  });
+});
+
+// Specific tests.
+describe("fixtures", () => {
+  describe("webpack5", () => {
+    const webpack = "webpack5";
+    let buildFiles;
+    const actuals = {};
+
+    before(async () => {
+      const buildDir = path.join(__dirname, "scenarios", webpack, "build");
+      buildFiles = await fs.readdir(buildDir);
+
+      await Promise.all(buildFiles
+        .filter((name) => (/\.json$/).test(name))
+        .map((name) => fs.readFile(path.join(buildDir, name))
+          // eslint-disable-next-line promise/always-return
+          .then((buf) => {
+            actuals[name] = JSON.parse(buf.toString());
+          })
+        )
+      );
+    });
+
+    // https://github.com/FormidableLabs/webpack-stats-plugin/issues/56
+    it("matches the correct hashed file name in stats object", () => {
+      const assetNames = buildFiles.filter((name) => (/^contenthash\./).test(name));
+      expect(assetNames).to.have.length(1);
+
+      const assetName = assetNames[0];
+      expect(actuals["stats-contenthash.json"])
+        .to.have.nested.property("entrypoints.main.assets[0].name")
+        .that.equals(assetName);
+    });
   });
 });
 

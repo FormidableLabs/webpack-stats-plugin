@@ -1,6 +1,14 @@
 History
 =======
 
+## UNRELEASED
+
+* *Bug*: Fix multiple stats output issue.
+  [#55](https://github.com/FormidableLabs/webpack-stats-plugin/issues/55)
+  [#57](https://github.com/FormidableLabs/webpack-stats-plugin/issues/57)
+* *Bug*: Change `processAssets` hook stage to `PROCESS_ASSETS_STAGE_REPORT` to correctly get hashed asset names.
+  [#56](https://github.com/FormidableLabs/webpack-stats-plugin/issues/56)
+
 ## 1.0.0
 
 * *Feature*: Support `webpack@5`.
