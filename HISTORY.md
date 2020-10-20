@@ -1,6 +1,11 @@
 History
 =======
 
+## UNRELEASED
+
+* *Bug*: Fix multiple stats output issue.
+  [#57](https://github.com/FormidableLabs/webpack-stats-plugin/issues/57)
+
 ## 1.0.0
 
 * *Feature*: Support `webpack@5`.
