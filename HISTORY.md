@@ -1,6 +1,11 @@
 History
 =======
 
+## UNRELEASED
+
+* *Bug*: Fix multiple stats output with `webpack --watch`.
+  [#59](https://github.com/FormidableLabs/webpack-stats-plugin/issues/59)
+
 ## 1.0.1
 
 * *Bug*: Fix multiple stats output issue.
