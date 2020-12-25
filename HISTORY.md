@@ -1,7 +1,7 @@
 History
 =======
 
-## UNRELEASED
+## 1.0.3
 
 * *Bug*: Use `RawSource` from current compiler where available.
   [#65](https://github.com/FormidableLabs/webpack-stats-plugin/pull/65)
