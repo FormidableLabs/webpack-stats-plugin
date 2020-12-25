@@ -1,6 +1,12 @@
 History
 =======
 
+## UNRELEASED
+
+* *Bug*: Use `RawSource` from current compiler where available.
+  [#65](https://github.com/FormidableLabs/webpack-stats-plugin/pull/65)
+  (*[@alexander-akait][]*)
+
 ## 1.0.2
 
 * *Bug*: Fix multiple stats output with `webpack --watch`.
@@ -93,8 +99,9 @@ History
 
 ## 0.0.1
 
-* Is embarassing and shall be forgotten.
+* Is embarrassing and shall be forgotten.
 
+[@alexander-akait]: https://github.com/alexander-akait
 [@evocateur]: https://github.com/evocateur
 [@evilebottnawi]: https://github.com/evilebottnawi
 [@dominics]: https://github.com/dominics
