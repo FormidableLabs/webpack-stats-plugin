@@ -1,6 +1,12 @@
 History
 =======
 
+## UNRELEASED
+
+* *Feature*: Add `opts.emit` option.
+  [#89](https://github.com/FormidableLabs/webpack-stats-plugin/pull/89)
+  [#84](https://github.com/FormidableLabs/webpack-stats-plugin/issues/84)
+
 ## 1.0.3
 
 * *Bug*: Use `RawSource` from current compiler where available.
