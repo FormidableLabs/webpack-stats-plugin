@@ -2,7 +2,7 @@ Webpack Stats Plugin
 ====================
 
 [![npm version][npm_img]][npm_site]
-[![Build Status][trav_img]][trav_site]
+[![Actions Status][actions_img]][actions_site]
 [![MIT license][lic_img]][lic_site]
 [![Maintenance Status][maintenance_image]](#maintenance-status)
 
@@ -205,9 +205,8 @@ $ yarn run check
 
 [npm_img]: https://badge.fury.io/js/webpack-stats-plugin.svg
 [npm_site]: http://badge.fury.io/js/webpack-stats-plugin
-[trav]: https://travis-ci.com/
-[trav_img]: https://api.travis-ci.com/FormidableLabs/webpack-stats-plugin.svg
-[trav_site]: https://travis-ci.com/FormidableLabs/webpack-stats-plugin
+[actions_img]: https://github.com/FormidableLabs/webpack-stats-plugin/workflows/CI/badge.svg
+[actions_site]: https://github.com/FormidableLabs/webpack-stats-plugin/actions
 [lic_img]: https://img.shields.io/npm/l/webpack-stats-plugin.svg?color=brightgreen&style=flat
 [lic_site]: https://github.com/FormidableLabs/webpack-stats-plugin/blob/main/LICENSE.txt
 [maintenance_image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat

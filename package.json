@@ -22,10 +22,10 @@
   "scripts": {
     "lint": "eslint .",
     "test": "yarn run test:clean && yarn run test:build && yarn run test:run",
-    "test:run": "mocha 'test/**/*.spec.js'",
+    "test:run": "mocha \"test/**/*.spec.js\"",
     "test:clean": "rm -rf test/scenarios/webpack*/build*",
     "test:build:single": "node node_modules/webpack${VERS}/index.js --config test/scenarios/webpack${VERS}/webpack.config${WP_EXTRA}.js",
-    "test:build": "builder envs test:build:single '[{\"VERS\":1},{\"VERS\":2},{\"VERS\":3},{\"VERS\":4},{\"VERS\":5},{\"VERS\":5,\"WP_EXTRA\":\".contenthash\"}]' --buffer",
+    "test:build": "builder envs test:build:single \"[{\\\"VERS\\\":1},{\\\"VERS\\\":2},{\\\"VERS\\\":3},{\\\"VERS\\\":4},{\\\"VERS\\\":5},{\\\"VERS\\\":5,\\\"WP_EXTRA\\\":\\\".contenthash\\\"}]\" --buffer",
     "check": "yarn run lint && yarn run test"
   },
   "dependencies": {},
