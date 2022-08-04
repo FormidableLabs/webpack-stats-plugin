@@ -66,4 +66,4 @@ jobs:
         env:
           # Webpack fails due to crypto enforcements in Node 17+
           # See, e.g., https://github.com/webpack/webpack/issues/14532
-          NODE_OPTIONS: ${{ matrix.node-version == "18.x" && "--openssl-legacy-provider" || "" }}
+          NODE_OPTIONS: ${{ matrix.node-version == '18.x' && '--openssl-legacy-provider' || '' }}
