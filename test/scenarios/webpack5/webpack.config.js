@@ -161,6 +161,10 @@ module.exports = {
 
         return JSON.stringify(data, null, INDENT);
       }
+    }),
+    new StatsWriterPlugin({
+      filename: "stats-should-not-exist.json",
+      emit: false
     })
   ]
 };

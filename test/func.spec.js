@@ -289,6 +289,17 @@ describe("fixtures", () => {
   describe("builds", () => {
     WEBPACKS.forEach((webpack) => {
       describe(webpack, () => {
+        it("creates expected files list", () => {
+          const expectedFiles = Object.keys(expecteds).sort();
+          let actualFiles = Object.keys(actuals[webpack]).sort();
+          // Remove webpack5-only files.
+          if (webpack === "webpack5") {
+            actualFiles = actualFiles.filter((file) => file !== "build/stats-contenthash.json");
+          }
+
+          expect(actualFiles).to.eql(expectedFiles);
+        });
+
         Object.keys(expecteds).forEach((name) => {
           it(`matches expected file: ${name}`, () => {
             const actual = actuals[webpack][name];

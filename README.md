@@ -135,6 +135,7 @@ module.exports = {
 * **opts.fields** (`Array`) fields of stats obj to keep (Default: `["assetsByChunkName"]`)
 * **opts.stats** (`Object|String`) stats config object or string preset (Default: `{}`)
 * **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
+* **opts.emit** (`Boolean`) add stats file to webpack output? (Default: `true`)
 
 Stats writer module.
 
