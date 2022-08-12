@@ -4703,6 +4703,11 @@ json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
+json-stream-stringify@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/json-stream-stringify/-/json-stream-stringify-3.0.0.tgz#d242c92f7288a2e534899d603efee0b0276c53f0"
+  integrity sha512-VlZBDRXAt+GFC+V0XRLOcwxzpCuTzwJPPkkOzqWNe20r3QInkMzNvKS4WPUm6QKvQ2sS0EZ49ftnh4dlXhh2Kw==
+
 json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"

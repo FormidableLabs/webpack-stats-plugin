@@ -3,6 +3,7 @@
 /**
  * Webpack configuration
  */
+const fs = require("fs");
 const path = require("path");
 const { StatsWriterPlugin } = require("../../../index");
 const INDENT = 2;
@@ -160,6 +161,35 @@ module.exports = {
         }, {}));
 
         return JSON.stringify(data, null, INDENT);
+      }
+    }),
+    new StatsWriterPlugin({
+      filename: "stats-should-not-exist.json",
+      emit: false
+    }),
+    new StatsWriterPlugin({
+      emit: false,
+      async transform(data, context) {
+        // eslint-disable-next-line global-require
+        const { JsonStreamStringify } = require("json-stream-stringify");
+
+        // Use same build directory as webpack.
+        const outputPath = context.compiler.options.output.path;
+        const filePath = path.join(outputPath, "stats-from-write-stream.json");
+
+        // Webpack is going to emit / create intermediate directories _after_ this plugin runs,
+        // so do a a mkdir -p before starting our streams.
+        await fs.promises.mkdir(outputPath, { recursive: true });
+
+        // Create and kick off the streams.
+        const jsonStream = new JsonStreamStringify(data, undefined, INDENT);
+        const writeStream = fs.createWriteStream(filePath);
+
+        return new Promise((resolve, reject) => { // eslint-disable-line promise/avoid-new
+          jsonStream.pipe(writeStream);
+          jsonStream.on("end", () => resolve());
+          jsonStream.on("error", (err) => reject(new Error(`error converting stream - ${err}`)));
+        });
       }
     })
   ]

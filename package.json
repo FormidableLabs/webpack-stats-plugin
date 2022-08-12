@@ -38,6 +38,7 @@
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-promise": "^4.2.1",
+    "json-stream-stringify": "^3.0.0",
     "mocha": "^8.1.1",
     "pify": "^5.0.0",
     "webpack": "file:test/packages/webpack",
