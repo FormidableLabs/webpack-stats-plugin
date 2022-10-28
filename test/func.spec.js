@@ -218,7 +218,9 @@ describe("failures", function () {
     expect(obj.code).to.equal(1);
     expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
 
-    const exps = Array(NUM_ERRS).fill("Error: SYNC");
+    // Webpack5 has "inner" repeat traces of error.
+    const WEBPACK_5_EXTRAS = 1;
+    const exps = Array(NUM_ERRS + WEBPACK_5_EXTRAS).fill("Error: SYNC");
     const errs = obj.stderr.match(/(^Error\: SYNC)/gm);
     expect(errs).to.eql(exps);
   });
@@ -237,9 +239,33 @@ describe("failures", function () {
     expect(obj.code).to.equal(1);
     expect(obj.stderr).to.contain(`Hit ${NUM_ERRS} errors`);
 
-    const exps = Array(NUM_ERRS).fill("Error: PROMISE");
+    // Webpack5 has "inner" repeat traces of error.
+    const WEBPACK_5_EXTRAS = 1;
+    const exps = Array(NUM_ERRS + WEBPACK_5_EXTRAS).fill("Error: PROMISE");
     const errs = obj.stderr.match(/(^Error\: PROMISE)/gm);
     expect(errs).to.eql(exps);
+  });
+});
+
+describe("production", function () {
+  // Set higher timeout for exec'ed tests.
+  this.timeout(5000); // eslint-disable-line no-invalid-this,no-magic-numbers
+
+  // Regression test: https://github.com/FormidableLabs/webpack-stats-plugin/issues/91
+  it("works in production mode", async () => {
+    // Use builder to concurrently run:
+    // `webpack<VERS>
+    const obj = await spawn(builderCli,
+      [
+        "envs", "test:build:single",
+        JSON.stringify([{ VERS: 4 }, { VERS: 5 }]),
+        "--env", JSON.stringify({ MODE: "production", OUTPUT_PATH: "build-prod" }),
+        "--buffer"
+      ]
+    );
+
+    expect(obj.stderr).to.equal(null);
+    expect(obj.code).to.equal(0);
   });
 });
 

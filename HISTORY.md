@@ -1,6 +1,11 @@
 History
 =======
 
+## UNRELEASED
+
+* *Bug*: Better inference of `RawSource` for use with Terser plugin.
+  [#91](https://github.com/FormidableLabs/webpack-stats-plugin/issues/91)
+
 ## 1.1.0
 
 * *Feature*: Add `opts.emit` option.

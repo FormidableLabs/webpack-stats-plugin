@@ -32,6 +32,9 @@ const STAT_RESET = Object.freeze({
   publicPath: false
 });
 
+const MODE = process.env.MODE || "development";
+const OUTPUT_PATH = path.join(__dirname, process.env.OUTPUT_PATH || "build");
+
 // webpack5 has deprecated `hash`.
 const VERS = parseInt(process.env.VERS || "", 10);
 const HASH_KEY = VERS >= 5 ? "fullhash" : "hash"; // eslint-disable-line no-magic-numbers
@@ -49,17 +52,16 @@ const normData = (data) => Object.keys(data)
   .reduce((m, k) => Object.assign(m, { [k]: data[k] }), {});
 
 module.exports = {
-  mode: "development",
+  mode: MODE,
   context: __dirname,
   entry: {
     main: "../../src/main.js"
   },
   output: {
-    path: path.join(__dirname, "build"),
+    path: OUTPUT_PATH,
     publicPath: "/website-o-doom/",
     filename: `[${HASH_KEY}].[name].js`
   },
-  devtool: false,
   plugins: [
     // Try various defaults and options.
     new StatsWriterPlugin(),
@@ -190,6 +192,12 @@ module.exports = {
           jsonStream.on("end", () => resolve());
           jsonStream.on("error", (err) => reject(new Error(`error converting stream - ${err}`)));
         });
+      }
+    }),
+    new StatsWriterPlugin({
+      filename: "stats.js",
+      transform() {
+        return "/*eslint-disable*/\nconsole.log(\"hello world\");\n";
       }
     })
   ]
