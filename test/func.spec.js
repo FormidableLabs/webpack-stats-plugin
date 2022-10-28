@@ -259,7 +259,8 @@ describe("production", function () {
       [
         "envs", "test:build:single",
         JSON.stringify([{ VERS: 4 }, { VERS: 5 }]),
-        "--env", JSON.stringify({ MODE: "production", OUTPUT_PATH: "build-prod" }),
+        "--env", JSON.stringify({ MODE: "production",
+          OUTPUT_PATH: "build-prod" }),
         "--buffer"
       ]
     );
