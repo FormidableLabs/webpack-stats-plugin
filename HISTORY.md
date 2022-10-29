@@ -1,7 +1,7 @@
 History
 =======
 
-## UNRELEASED
+## 1.1.1
 
 * *Bug*: Better inference of `RawSource` for use with Terser plugin.
   [#91](https://github.com/FormidableLabs/webpack-stats-plugin/issues/91)
