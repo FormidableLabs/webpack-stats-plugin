@@ -26,7 +26,7 @@
     "test:clean": "rm -rf test/scenarios/webpack*/build*",
     "test:build:single": "node node_modules/webpack${VERS}/index.js --config test/scenarios/webpack${VERS}/webpack.config${WP_EXTRA}.js",
     "test:build": "builder envs test:build:single \"[{\\\"VERS\\\":1},{\\\"VERS\\\":2},{\\\"VERS\\\":3},{\\\"VERS\\\":4},{\\\"VERS\\\":5},{\\\"VERS\\\":5,\\\"WP_EXTRA\\\":\\\".contenthash\\\"}]\" --buffer",
-    "test:huge": "rm -rf test/src/huge && node test/build-huge.js && builder envs test:build:single \"[{\\\"VERS\\\":1,\\\"WP_EXTRA\\\":\\\".huge\\\"}]\" --buffer && rm -rf test/scenarios/webpack1/build/huge-stats.json",
+    "test:huge": "rm -rf test/src/huge && node test/build-huge.js && builder envs test:build:single \"[{\\\"VERS\\\":4,\\\"WP_EXTRA\\\":\\\".huge\\\"}]\" --buffer && rm -rf test/scenarios/webpack4/build/huge-stats.json",
     "check": "yarn run lint && yarn run test"
   },
   "dependencies": {},

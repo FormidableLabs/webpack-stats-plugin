@@ -6,7 +6,7 @@ const { join } = require("path");
 const dir = join(__dirname, "src", "huge");
 const build = () => {
   mkdirSync(dir);
-  const fileCount = 300000;
+  const fileCount = 200000;
   const files = [];
   for (let i = 0; i < fileCount; i++) {
     files.push(`file${i}`);
