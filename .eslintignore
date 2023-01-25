@@ -1,2 +1,3 @@
 node_modules
 test/scenarios/*/build*
+test/src/huge

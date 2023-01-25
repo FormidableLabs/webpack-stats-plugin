@@ -10,5 +10,6 @@ yarn-error.log*
 
 # Build
 coverage
+test/src/huge
 test/scenarios/*/build*
 !test/expected/build*
