@@ -178,7 +178,6 @@ By supplying an alternate transform you can target _any_ output format. See [`te
 
 - **Warning**: The output of `transform` should be a `String`, not an object. On Node `v4.x` if you return a real object in `transform`, then webpack will break with a `TypeError` (See [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just adding a simple `JSON.stringify()` around your object is usually what you need to solve any problems.
 
-
 **Internal notes**
 
 In modern webpack, the plugin uses the [`processAssets`](https://webpack.js.org/api/compilation-hooks/#processassets) compilation hook if available when adding the stats object file to the overall compilation to write out along with all the other webpack-built assets. This is the [last possible place](https://github.com/webpack/webpack/blob/f2f998b58362d5edc9945a48f8245a3347ad007c/lib/Compilation.js#L2000-L2007) to hook in before the compilation is frozen in future webpack releases.
