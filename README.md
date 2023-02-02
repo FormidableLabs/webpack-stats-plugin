@@ -165,9 +165,19 @@ The `opts.filename` option can be a file name or path relative to `output.path` 
 
 **`transform`**
 
-By default, the retrieved stats object is `JSON.stringify`'ed but by supplying an alternate transform you can target _any_ output format. See [`test/scenarios/webpack5/webpack.config.js`](test/scenarios/webpack5/webpack.config.js) for various examples including Markdown output.
+By default, the retrieved stats object is `JSON.stringify`'ed:
+```javascript
+new StatsWriterPlugin({
+  transform(data) {
+    return JSON.stringify(data, null, 2);
+  }
+})
+```
+
+By supplying an alternate transform you can target _any_ output format. See [`test/scenarios/webpack5/webpack.config.js`](test/scenarios/webpack5/webpack.config.js) for various examples including Markdown output.
 
 - **Warning**: The output of `transform` should be a `String`, not an object. On Node `v4.x` if you return a real object in `transform`, then webpack will break with a `TypeError` (See [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just adding a simple `JSON.stringify()` around your object is usually what you need to solve any problems.
+
 
 **Internal notes**
 
