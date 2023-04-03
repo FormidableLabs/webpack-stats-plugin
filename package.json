@@ -30,6 +30,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@rspack/cli": "^0.1.4",
     "babel-eslint": "^10.1.0",
     "builder": "^5.0.0",
     "chai": "^4.2.0",
