@@ -1,8 +1,14 @@
 "use strict";
 
-
 /**
  * Webpack configuration
+ *
+ * Usage:
+ *
+ * ```sh
+ * $ cd test/scenarios/rspack
+ * $ yarn rspack build -c $PWD/rspack.config.js
+ * ```
  */
 const fs = require("fs");
 const path = require("path");
