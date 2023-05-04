@@ -1,51 +1,36 @@
 {
   "name": "@regru/webpack-stats-plugin",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "Webpack stats plugin",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shifteee/webpack-stats-plugin"
+    "url": "https://github.com/regru/webpack-stats-plugin"
   },
   "keywords": [
     "webpack"
   ],
-  "author": "Ryan Roemer <ryan.roemer@formidable.com>",
+  "author": "shiftmailbox@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shifteee/webpack-stats-plugin/issues"
+    "url": "https://github.com/regru/webpack-stats-plugin/issues"
   },
   "files": [
     "lib",
     "index.js"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=10"
   },
   "scripts": {
-    "lint": "eslint .",
-    "test": "yarn run test:clean && yarn run test:build && yarn run test:run",
-    "test:run": "mocha 'test/**/*.spec.js'",
-    "test:clean": "rm -rf test/webpack*/build*",
-    "test:build:single": "cd node_modules/webpack${VERS} && node index.js --config ../../test/webpack${VERS}/webpack.config.js",
-    "test:build": "node_modules/.bin/builder envs test:build:single '[{\"VERS\":1},{\"VERS\":2},{\"VERS\":3},{\"VERS\":4}]' --buffer",
-    "check": "yarn run lint && yarn run test"
+    "lint": "eslint ."
   },
   "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^8.2.2",
-    "builder": "^4.0.0",
-    "chai": "^4.1.2",
-    "eslint": "^4.18.1",
-    "eslint-config-formidable": "^3.0.0",
-    "eslint-plugin-filenames": "^1.2.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-promise": "^3.6.0",
-    "mocha": "^5.0.1",
-    "pify": "^3.0.0",
-    "webpack1": "file:test/webpack1",
-    "webpack2": "file:test/webpack2",
-    "webpack3": "file:test/webpack3",
-    "webpack4": "file:test/webpack4"
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-promise": "^6.1.1"
   }
 }

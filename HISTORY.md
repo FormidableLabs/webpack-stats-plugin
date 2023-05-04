@@ -1,5 +1,11 @@
 History
 =======
+## 1.0.0
+* **Breaking**: Update to node10+
+* Drop webpack 4 and older support
+* Add options `once`, `statsOptions`
+* Remove `opts.fields`
+
 ## 0.2.0-regru
 
 * **Breaking**: Update to node4+.

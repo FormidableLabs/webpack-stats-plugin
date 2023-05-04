@@ -1,6 +1,6 @@
 ---
 extends:
-  - formidable/configurations/es6-node
+  - airbnb-base
   - plugin:import/errors
 
 plugins:
@@ -8,5 +8,6 @@ plugins:
   - promise
 
 rules:
+  indent: [error, 4]
   consistent-return: [error, { treatUndefinedAsUnspecified: true }]
   import/no-unresolved: [error, { commonjs: true }]

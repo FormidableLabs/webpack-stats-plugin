@@ -1,7 +1,5 @@
-"use strict";
-
-const StatsWriterPlugin = require("./lib/stats-writer-plugin");
+const StatsWriterPlugin = require('./lib/stats-writer-plugin');
 
 module.exports = {
-  StatsWriterPlugin
+    StatsWriterPlugin,
 };

@@ -1,33 +1,19 @@
 Webpack Stats Plugin
 ====================
 
-[![Build Status][trav_img]][trav_site]
-
-This plugin will ingest the webpack
-[stats](https://github.com/webpack/docs/wiki/node.js-api#stats) object,
-process / transform the object and write out to a file for further consumption.
-
-The most common use case is building a hashed bundle and wanting to
-programmatically refer to the correct bundle path in your Node.js server.
+This plugin will extract stats from your webpack build, transform and write to file.
 
 ## Installation
 
-The plugin is available via [npm](https://www.npmjs.com/package/webpack-stats-plugin):
-
 ```
-$ npm install --save-dev webpack-stats-plugin
-$ yarn add --dev webpack-stats-plugin
+$ npm install --save-dev @regru/webpack-stats-plugin
+$ yarn add --dev @regru/webpack-stats-plugin
 ```
 
-## Examples
-
-We have example webpack configurations for all versions of webpack. See., e.g.
-[`test/webpack4/webpack.config.js`](test/webpack4/webpack.config.js).
-
-### Basic
+### Usage
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("@regru/webpack-stats-plugin");
 
 module.exports = {
   plugins: [
@@ -49,18 +35,17 @@ The transform function has a signature of:
 /**
  * Transform skeleton.
  *
- * @param {Object} data           Stats object
- * @param {Object} opts           Options
- * @param {Object} opts.compiler  Current compiler instance
+ * @param {Object} stats          Stats object
+ * 
  * @returns {String}              String to emit to file
  */
-function (data, opts) {}
+function transform(stats) {}
 ```
 
 which you can use like:
 
 ```js
-const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const { StatsWriterPlugin } = require("@regru/webpack-stats-plugin");
 
 module.exports = {
   plugins: [
@@ -83,7 +68,8 @@ module.exports = {
 ### `StatsWriterPlugin(opts)`
 * **opts** (`Object`) options
 * **opts.filename** (`String`) output file name (Default: &quot;stat.json&quot;)
-* **opts.fields** (`Array`) fields of stats obj to keep (Default: \[&quot;assetsByChunkName&quot;\])
+* **opts.once** (`Boolean`) skip functionality after first occurrence
+* **opts.statsOptions** (`Object`) options for webpack Stats object (See [Stats](https://webpack.js.org/configuration/stats/#stats-options))
 * **opts.transform** (`Function`) transform stats obj (Default: `JSON.stringify()`)
 
 Stats writer module.
@@ -98,12 +84,6 @@ Stats can be a string or array (we"ll have array from using source maps):
   ]
 },
 ```
-
-**Note**: The stats object is **big**. It includes the entire source included
-in a bundle. Thus, we default `opts.fields` to `["assetsByChunkName"]` to
-only include those. However, if you want the _whole thing_ (maybe doing an
-`opts.transform` function), then you can set `fields: null` in options to
-get **all** of the stats object.
 
 See:
 - http://webpack.github.io/docs/long-term-caching.html#get-filenames-from-stats
@@ -123,34 +103,3 @@ various examples including Markdown output.
   [#8](https://github.com/FormidableLabs/webpack-stats-plugin/issues/8)). Just
   adding a simple `JSON.stringify()` around your object is usually what you need
   to solve any problems.
-
-## Contributions
-
-Contributions welcome!
-
-We test against all versions of webpack. For a full explanation of our
-functional tests, see [test/README.md](test/README.md)
-
-To get started, first install:
-
-```sh
-$ yarn
-```
-
-Our tests first do various webpack builds and then run mocha asserts on the real
-outputted stats files. Inefficient, but for our small sample size efficient
-enough.
-
-```sh
-# Lint and tests
-$ yarn run lint
-$ yarn run test
-
-# All together
-$ yarn run check
-```
-
-[trav]: https://travis-ci.org/
-[trav_img]: https://api.travis-ci.org/FormidableLabs/webpack-stats-plugin.svg
-[trav_site]: https://travis-ci.org/FormidableLabs/webpack-stats-plugin
-[yarn workspaces]: https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/
