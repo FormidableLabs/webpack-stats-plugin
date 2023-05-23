@@ -30,6 +30,8 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@changesets/cli": "^2.26.1",
+    "@svitejs/changesets-changelog-github-compact": "^0.1.1",
     "babel-eslint": "^10.1.0",
     "builder": "^5.0.0",
     "chai": "^4.2.0",

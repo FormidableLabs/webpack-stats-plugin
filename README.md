@@ -35,7 +35,7 @@ $ webpack-cli --plugin webpack-stats-plugin/lib/stats-writer-plugin
 A basic `webpack.config.js`-based integration:
 
 ```js
-const { StatsWriterPlugin } = require("webpack-stats-plugin")
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
 
 module.exports = {
   plugins: [
@@ -43,10 +43,10 @@ module.exports = {
 
     // Write out stats file to build directory.
     new StatsWriterPlugin({
-      filename: "stats.json" // Default
-    })
-  ]
-}
+      filename: "stats.json", // Default
+    }),
+  ],
+};
 ```
 
 ### Custom `stats` Configuration
@@ -54,18 +54,18 @@ module.exports = {
 This option is passed to the webpack compiler's [`getStats().toJson()`](https://webpack.js.org/api/node/#statstojsonoptions) method.
 
 ```js
-const { StatsWriterPlugin } = require("webpack-stats-plugin")
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
 
 module.exports = {
   plugins: [
     new StatsWriterPlugin({
       stats: {
         all: false,
-        assets: true
-      }
-    })
-  ]
-}
+        assets: true,
+      },
+    }),
+  ],
+};
 ```
 
 ### Custom Transform Function
@@ -93,14 +93,18 @@ module.exports = {
   plugins: [
     new StatsWriterPlugin({
       transform(data, opts) {
-        return JSON.stringify({
-          main: data.assetsByChunkName.main[0],
-          css: data.assetsByChunkName.main[1]
-        }, null, 2);
-      }
-    })
-  ]
-}
+        return JSON.stringify(
+          {
+            main: data.assetsByChunkName.main[0],
+            css: data.assetsByChunkName.main[1],
+          },
+          null,
+          2
+        );
+      },
+    }),
+  ],
+};
 ```
 
 ### Promise transform
@@ -115,26 +119,33 @@ module.exports = {
     new StatsWriterPlugin({
       filename: "stats-transform-promise.json",
       transform(data) {
-        return Promise.resolve().then(() => JSON.stringify({
-          main: data.assetsByChunkName.main
-        }, null, INDENT));
-      }
-    })
-  ]
-}
+        return Promise.resolve().then(() =>
+          JSON.stringify(
+            {
+              main: data.assetsByChunkName.main,
+            },
+            null,
+            INDENT
+          )
+        );
+      },
+    }),
+  ],
+};
 ```
 
 ## Plugins
 
-* [`StatsWriterPlugin(opts)`](#statswriterplugin-opts-)
+- [`StatsWriterPlugin(opts)`](#statswriterplugin-opts-)
 
 ### `StatsWriterPlugin(opts)`
-* **opts** (`Object`) options
-* **opts.filename** (`String|Function`) output file name (Default: `"stats.json"`)
-* **opts.fields** (`Array`) fields of stats obj to keep (Default: `["assetsByChunkName"]`)
-* **opts.stats** (`Object|String`) stats config object or string preset (Default: `{}`)
-* **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
-* **opts.emit** (`Boolean`) add stats file to webpack output? (Default: `true`)
+
+- **opts** (`Object`) options
+- **opts.filename** (`String|Function`) output file name (Default: `"stats.json"`)
+- **opts.fields** (`Array`) fields of stats obj to keep (Default: `["assetsByChunkName"]`)
+- **opts.stats** (`Object|String`) stats config object or string preset (Default: `{}`)
+- **opts.transform** (`Function|Promise`) transform stats obj (Default: `JSON.stringify()`)
+- **opts.emit** (`Boolean`) add stats file to webpack output? (Default: `true`)
 
 Stats writer module.
 
@@ -156,6 +167,7 @@ The stats object is **big**. It includes the entire source included in a bundle.
 You may also pass a custom stats config object (or string preset) via `opts.stats` in order to select exactly what you want added to the data passed to the transform. When `opts.stats` is passed, `opts.fields` will default to `null`.
 
 See:
+
 - https://webpack.js.org/configuration/stats/#stats
 - https://webpack.js.org/api/node/#stats-object
 
@@ -166,12 +178,13 @@ The `opts.filename` option can be a file name or path relative to `output.path` 
 **`transform`**
 
 By default, the retrieved stats object is `JSON.stringify`'ed:
+
 ```javascript
 new StatsWriterPlugin({
   transform(data) {
     return JSON.stringify(data, null, 2);
-  }
-})
+  },
+});
 ```
 
 By supplying an alternate transform you can target _any_ output format. See [`test/scenarios/webpack5/webpack.config.js`](test/scenarios/webpack5/webpack.config.js) for various examples including Markdown output.
@@ -183,29 +196,6 @@ By supplying an alternate transform you can target _any_ output format. See [`te
 In modern webpack, the plugin uses the [`processAssets`](https://webpack.js.org/api/compilation-hooks/#processassets) compilation hook if available when adding the stats object file to the overall compilation to write out along with all the other webpack-built assets. This is the [last possible place](https://github.com/webpack/webpack/blob/f2f998b58362d5edc9945a48f8245a3347ad007c/lib/Compilation.js#L2000-L2007) to hook in before the compilation is frozen in future webpack releases.
 
 In earlier webpack, the plugin uses the much later [`emit`](https://webpack.js.org/api/compiler-hooks/#emit) compiler hook. There are technically some assets/stats data that could be added after `processAssets` and before `emit`, but for most practical uses of this plugin users shouldn't see any differences in the usable data produced by different versions of webpack.
-
-## Contributions
-
-Contributions welcome!
-
-We test against all versions of webpack. For a full explanation of our functional tests, see [test/README.md](test/README.md)
-
-To get started, first install:
-
-```sh
-$ yarn
-```
-
-Our tests first do various webpack builds and then run mocha asserts on the real outputted stats files. Inefficient, but for our small sample size efficient enough.
-
-```sh
-# Lint and tests
-$ yarn run lint
-$ yarn run test
-
-# All together
-$ yarn run check
-```
 
 ## Maintenance Status
 
