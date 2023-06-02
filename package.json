@@ -50,5 +50,8 @@
     "webpack3": "file:test/packages/webpack3",
     "webpack4": "file:test/packages/webpack4",
     "webpack5": "file:test/packages/webpack5"
+  },
+  "publishConfig": {
+    "provenance": true
   }
 }
