@@ -25,7 +25,11 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Unit Tests
-        run: yarn test
+        run: yarn run check
+        env:
+          # Webpack fails due to crypto enforcements in Node 17+
+          # See, e.g., https://github.com/webpack/webpack/issues/14532
+          NODE_OPTIONS: "--openssl-legacy-provider"
 
       - name: PR or Publish
         id: changesets
