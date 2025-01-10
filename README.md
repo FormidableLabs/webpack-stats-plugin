@@ -16,10 +16,10 @@
     <img alt="build status" src="https://github.com/FormidableLabs/webpack-stats-plugin/actions/workflows/ci.yml/badge.svg">
   </a>
   <a href="https://github.com/FormidableLabs/webpack-stats-plugin#maintenance-status">
-    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg" />
+    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat" />
   </a>
   <a href="https://github.com/FormidableLabs/webpack-stats-plugin/blob/main/LICENSE.txt">
-  <img alt="license" src="https://img.shields.io/npm/l/webpack-stats-plugin"j>
+  <img alt="license" src="https://img.shields.io/npm/l/webpack-stats-plugin?color=brightgreen&style=flat">
   </a>
 </p>
 
@@ -218,11 +218,3 @@ In earlier webpack, the plugin uses the much later [`emit`](https://webpack.js.o
 ## Maintenance Status
 
 **Active:** NearForm is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
-
-[npm_img]: https://badge.fury.io/js/webpack-stats-plugin.svg
-[npm_site]: http://badge.fury.io/js/webpack-stats-plugin
-[actions_img]: https://github.com/FormidableLabs/webpack-stats-plugin/workflows/CI/badge.svg
-[actions_site]: https://github.com/FormidableLabs/webpack-stats-plugin/actions
-[lic_img]: https://img.shields.io/npm/l/webpack-stats-plugin.svg?color=brightgreen&style=flat
-[lic_site]: https://github.com/FormidableLabs/webpack-stats-plugin/blob/main/LICENSE.txt
-[maintenance_image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat
