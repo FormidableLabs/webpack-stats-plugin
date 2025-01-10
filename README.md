@@ -1,9 +1,27 @@
-[![Webpack Stats Plugin — Formidable, We build the modern web](https://raw.githubusercontent.com/FormidableLabs/webpack-stats-plugin/master/webpack-stats-plugin-Hero.png)](https://formidable.com/open-source/)
+<a href="https://commerce.nearform.com/open-source/" target="_blank">
+  <img alt="Webpack Stats Plugin" src="https://oss.nearform.com/api/banner.svg?badge=Webpack%20Stats%20Plugin&bg=e8b25a" />
+</a>
 
-[![npm version][npm_img]][npm_site]
-[![Actions Status][actions_img]][actions_site]
-[![MIT license][lic_img]][lic_site]
-[![Maintenance Status][maintenance_image]](#maintenance-status)
+<br />
+<br />
+
+<p align="center">
+  <a href="https://npmjs.com/package/webpack-stats-plugin">
+    <img alt="weekly downloads" src="https://img.shields.io/npm/dw/webpack-stats-plugin">
+  </a>
+  <a href="https://npmjs.com/package/webpack-stats-plugin">
+    <img alt="current version" src="https://img.shields.io/npm/v/webpack-stats-plugin">
+  </a>
+  <a href="https://github.com/FormidableLabs/webpack-stats-plugin/actions">
+    <img alt="build status" src="https://github.com/FormidableLabs/webpack-stats-plugin/actions/workflows/ci.yml/badge.svg">
+  </a>
+  <a href="https://github.com/FormidableLabs/webpack-stats-plugin#maintenance-status">
+    <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat" />
+  </a>
+  <a href="https://github.com/FormidableLabs/webpack-stats-plugin/blob/main/LICENSE.txt">
+  <img alt="license" src="https://img.shields.io/npm/l/webpack-stats-plugin?color=brightgreen&style=flat">
+  </a>
+</p>
 
 This plugin will ingest the webpack [stats](https://webpack.js.org/configuration/stats/#stats) object, process / transform the object and write out to a file for further consumption.
 
@@ -199,12 +217,4 @@ In earlier webpack, the plugin uses the much later [`emit`](https://webpack.js.o
 
 ## Maintenance Status
 
-**Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
-
-[npm_img]: https://badge.fury.io/js/webpack-stats-plugin.svg
-[npm_site]: http://badge.fury.io/js/webpack-stats-plugin
-[actions_img]: https://github.com/FormidableLabs/webpack-stats-plugin/workflows/CI/badge.svg
-[actions_site]: https://github.com/FormidableLabs/webpack-stats-plugin/actions
-[lic_img]: https://img.shields.io/npm/l/webpack-stats-plugin.svg?color=brightgreen&style=flat
-[lic_site]: https://github.com/FormidableLabs/webpack-stats-plugin/blob/main/LICENSE.txt
-[maintenance_image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat
+**Active:** NearForm is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
