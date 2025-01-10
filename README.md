@@ -1,5 +1,5 @@
 <a href="https://commerce.nearform.com/open-source/" target="_blank">
-  <img alt="Victory — Formidable, We build the modern web" src="https://oss.nearform.com/api/banner.svg?badge=Webpack%20Stats%20Plugin&bg=e8b25a" />
+  <img alt="Webpack Stats Plugin" src="https://oss.nearform.com/api/banner.svg?badge=Webpack%20Stats%20Plugin&bg=e8b25a" />
 </a>
 
 <br />
